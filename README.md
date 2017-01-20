@@ -2,8 +2,8 @@
 
 Yleisiä linkkejä:
 
-* [Linkki sovellukseeni](https://www.lmelkas.users.cs.helsinki.fi)
-* [Linkki dokumentaatiooni](docs/dokumentaatio.pdf)
+* [Linkki sovellukseen](https://www.lmelkas.users.cs.helsinki.fi)
+* [Linkki dokumentaatioon](docs/dokumentaatio.pdf)
 
 ## Työn aihe
 
