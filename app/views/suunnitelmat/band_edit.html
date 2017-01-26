@@ -4,43 +4,48 @@
 <h2>Edit: The Band</h2>
     
 <form>
-
-    <label>Add or remove genres</label>
-
+    
     <div class="form-group">
-        <select class="selectpicker" multiple>
-            <option value="metal">Metal</option>
-            <option value="rock">Rock</option>
-            <option value="funk">Funk</option>
-            <option value="psychedelic">Psychedelic</option>
-            <option value="ambient">Ambient</option>
-            <option value="rap">Rap</option>
-            <option value="reggae">Reggae</option>
-            <option value="pop">Pop</option>
-            <option value="folk">Folk</option>
-            <option value="country">Country</option>
-            <option value="grunge">Grunge</option>
-            <option value="punk">Punk</option>
-        </select>
+        <label class="col-xs-3 control-label">Choose genres</label>
+        <div class="col-xs-5">
+            <select class="form-control" multiple size="5">
+                <option value="metal">Metal</option>
+                <option value="rock">Rock</option>
+                <option value="funk">Funk</option>
+                <option value="psychedelic">Psychedelic</option>
+                <option value="ambient">Ambient</option>
+                <option value="rap">Rap</option>
+                <option value="reggae">Reggae</option>
+                <option value="pop">Pop</option>
+                <option value="folk">Folk</option>
+                <option value="country">Country</option>
+                <option value="grunge">Grunge</option>
+                <option value="punk">Punk</option>
+            </select>
+        </div>
     </div>
-        
+    
+    <div>
+        <p>Hold down control to choose multiple options</p>
+    </div>
+    
     <div class="form-group">
-        <label>Name of the band</label>
+        <label class="col-xs-5">Name of the band</label>
         <input class="form-control" value="The Band" type="text">
     </div>
         
     <div class="form-group">
-        <label>Country of origin</label>
+        <label class="col-xs-5">Country of origin</label>
         <input class="form-control" value="United Kingdom" type="text">
     </div>
         
     <div class="form-group">
-        <label>Website</label>
+        <label class="col-xs-5">Website</label>
         <input class="form-control" type="text">
     </div>
         
     <div class="form-group"> 
-        <label>Description</label>
+        <label class="col-xs-5">Description</label>
         <textarea class="form-control">    The Band was formed in 2010 by siblings Alice and Eoghan. They have so far released three singles and one LP, as well as toured some of the biggest summer festivals in Europe. Their music is partly inspired by Nirvana, The Red Hot Chilli Peppers and their likes.
         </textarea>
     </div> 
@@ -110,13 +115,11 @@
             </tbody>
         </table>
             
-        <p>
-            <button class="btn btn-success">Add new concert</button>
-        </p>    
     </div>
-        
+    
     <div class="form-group">
-        <button type="submit" class="btn btn-primary">Save changes</button>
+        <button class="btn btn-success">Add new concert</button>
+        <button type="submit" class="btn btn-primary" style="float: right">Save changes</button>
     </div>
 </form>
 {% endblock %}

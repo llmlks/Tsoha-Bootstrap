@@ -1,0 +1,21 @@
+# Tietokantasovelluksen esittelysivu
+
+Yleisiä linkkejä:
+
+* [Linkki sovellukseen](https://www.lmelkas.users.cs.helsinki.fi/bandbook)
+* [Linkki dokumentaatioon](doc/dokumentaatio.pdf)
+* Linkit sovelluksen staattisille HTML-sivuille* [home.html](app/views/home.html)
+* [band_show.html](app/views/band_show.html)
+* [band_edit.html](app/views/band_edit.html)
+* [bandmember_add.html](app/views/bandmember_add.html)
+* [bandmember_edit.html](app/views/bandmember_edit.html)
+* [concert_add.html](app/views/concert_add.html)
+* [concert_edit.html](app/views/concert_edit.html)
+* [favourite_list.html](app/views/favourite_list.html)
+* [login.html](app/views/login.html)
+* [signup.html](app/views/signup.html)
+* [search_list.html](app/views/search_list.html)
+
+## Työn aihe
+
+BandBook on web-pohjainen bändigalleria, jonne rekisteröityneitä bändejä voi selata ja etsiä joko yhden tai useamman genren, nimen tai bändin jäsenen perusteella. Rekisteröityneet bändit voivat myös seurata muita lisäämällä ne omaan suosikkeihinsa. 
