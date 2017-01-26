@@ -12,46 +12,46 @@
     }
     
     public static function home(){
-        View::make('sunnitelmat/home.html');
+        View::make('suunnitelmat/home.html');
     }
 
     public static function band_show(){
-        View::make('sunnitelmat/band_show.html');
+        View::make('suunnitelmat/band_show.html');
     }
 
     public static function bandmember_add(){
-        View::make('sunnitelmat/bandmember_add.html');
+        View::make('suunnitelmat/bandmember_add.html');
     }
 
     public static function bandmember_edit(){
-        View::make('sunnitelmat/bandmember_edit.html');
+        View::make('suunnitelmat/bandmember_edit.html');
     }
 
     public static function concert_add(){
-        View::make('sunnitelmat/concert_add.html');
+        View::make('suunnitelmat/concert_add.html');
     }    
 
     public static function concert_edit(){
-        View::make('sunnitelmat/concert_edit.html');
+        View::make('suunnitelmat/concert_edit.html');
     }
 
     public static function favourite_list(){
-        View::make('sunnitelmat/favourite_list.html');
+        View::make('suunnitelmat/favourite_list.html');
     }
 
     public static function signup(){
-        View::make('sunnitelmat/signup.html');
+        View::make('suunnitelmat/signup.html');
     }
 
     public static function login(){
-        View::make('sunnitelmat/login.html');
+        View::make('suunnitelmat/login.html');
     }    
     
     public static function search_list(){
-        View::make('sunnitelmat/search_list.html');
+        View::make('suunnitelmat/search_list.html');
     }    
 
     public static function band_edit(){
-        View::make('sunnitelmat/band_edit.html');
+        View::make('suunnitelmat/band_edit.html');
     }    
   }
