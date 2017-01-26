@@ -1,18 +1,14 @@
 {% extends "base.html" %}
     
 {% block content %}
-<h2>The Band</h2>
-    
-<label class="label label-primary">Grunge</label><button class="btn btn-danger">Remove</button>
-<label class="label label-primary">Reggae</label><button class="btn btn-danger">Remove</button>
-<label class="label label-primary">Funk</label><button class="btn btn-danger">Remove</button>
-<label class="label label-primary">Pop</label><button class="btn btn-danger">Remove</button>
+<h2>Edit: The Band</h2>
     
 <form>
-    
+
+    <label>Add or remove genres</label>
+
     <div class="form-group">
-        <label>Add genres</label>
-        <select multiple>
+        <select class="selectpicker" multiple>
             <option value="metal">Metal</option>
             <option value="rock">Rock</option>
             <option value="funk">Funk</option>
@@ -120,7 +116,7 @@
     </div>
         
     <div class="form-group">
-        <button type="submit" class="btn btn-success">Save changes</button>
+        <button type="submit" class="btn btn-primary">Save changes</button>
     </div>
 </form>
 {% endblock %}
