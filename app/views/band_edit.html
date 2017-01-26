@@ -1,0 +1,126 @@
+{% extends "base.html" %}
+    
+{% block content %}
+<h2>The Band</h2>
+    
+<label class="label label-primary">Grunge</label><button class="btn btn-danger">Remove</button>
+<label class="label label-primary">Reggae</label><button class="btn btn-danger">Remove</button>
+<label class="label label-primary">Funk</label><button class="btn btn-danger">Remove</button>
+<label class="label label-primary">Pop</label><button class="btn btn-danger">Remove</button>
+    
+<form>
+    
+    <div class="form-group">
+        <label>Add genres</label>
+        <select multiple>
+            <option value="metal">Metal</option>
+            <option value="rock">Rock</option>
+            <option value="funk">Funk</option>
+            <option value="psychedelic">Psychedelic</option>
+            <option value="ambient">Ambient</option>
+            <option value="rap">Rap</option>
+            <option value="reggae">Reggae</option>
+            <option value="pop">Pop</option>
+            <option value="folk">Folk</option>
+            <option value="country">Country</option>
+            <option value="grunge">Grunge</option>
+            <option value="punk">Punk</option>
+        </select>
+    </div>
+        
+    <div class="form-group">
+        <label>Name of the band</label>
+        <input class="form-control" value="The Band" type="text">
+    </div>
+        
+    <div class="form-group">
+        <label>Country of origin</label>
+        <input class="form-control" value="United Kingdom" type="text">
+    </div>
+        
+    <div class="form-group">
+        <label>Website</label>
+        <input class="form-control" type="text">
+    </div>
+        
+    <div class="form-group"> 
+        <label>Description</label>
+        <textarea class="form-control">    The Band was formed in 2010 by siblings Alice and Eoghan. They have so far released three singles and one LP, as well as toured some of the biggest summer festivals in Europe. Their music is partly inspired by Nirvana, The Red Hot Chilli Peppers and their likes.
+        </textarea>
+    </div> 
+        
+    <div>
+        <h2>Band members</h2>
+            
+        <table class="table table-striped table-bordered">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Instruments</th>
+                    <th>Member from</th>
+                    <th>Member until</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+                
+            <tbody>
+                <tr>
+                    <td>Alice</td>
+                    <td>Vocals, guitar</td>
+                    <td>13.01.2010</td>
+                    <td> - </td>
+                    <th><a class="btn btn-primary btn-sm" href="#">Edit</a></th>
+                    <th><a class="btn btn-danger btn-sm" href="#">Remove</a></th>
+                </tr>
+                    
+                <tr>
+                    <td>Eoghan</td>
+                    <td>Drums, backing vocals</td>
+                    <td>13.01.2010</td>
+                    <td> - </td>
+                    <th><a class="btn btn-primary btn-sm" href="#">Edit</a></th>
+                    <th><a class="btn btn-danger btn-sm" href="#">Remove</a></th>
+                </tr>
+            </tbody>
+        </table>
+            
+        <p>
+            <button class="btn btn-success">Add new band member</button>
+        </p>
+    </div>
+        
+    <div>
+        <h2>Concerts</h2>
+            
+        <table class="table table-striped table-bordered">
+            <thead>
+                <tr>
+                    <th>Location</th>
+                    <th>Date</th>
+                    <th>Time</th>
+                    <th></th>
+                </tr>
+            </thead>
+                
+            <tbody>
+                <tr>
+                    <td>Klubi, Tampere</td>
+                    <td>23.03.2017</td>
+                    <td>8:00pm</td>
+                    <th><a class="btn btn-primary btn-sm" href="#">Edit</a></th>
+                    <th><a class="btn btn-danger btn-sm" href="#">Remove</a></th>
+                </tr>
+            </tbody>
+        </table>
+            
+        <p>
+            <button class="btn btn-success">Add new concert</button>
+        </p>    
+    </div>
+        
+    <div class="form-group">
+        <button type="submit" class="btn btn-success">Save changes</button>
+    </div>
+</form>
+{% endblock %}
