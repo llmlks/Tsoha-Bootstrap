@@ -8,7 +8,7 @@ Yleisiä linkkejä:
   * [band_edit.html](https://lmelkas.users.cs.helsinki.fi/bandbook/band_edit)
   * [bandmember_add.html](https://lmelkas.users.cs.helsinki.fi/bandbook/bandmember_add)
   * [bandmember_edit.html](https://lmelkas.users.cs.helsinki.fi/bandbook/bandmember_edit)
-  * [band_show.html](https://lmelkas.users.cs.helsinki.fi/bandbook/band_show)
+  * [band_show.html](https://lmelkas.users.cs.helsinki.fi/bandbook/band)
   * [concert_add.html](https://lmelkas.users.cs.helsinki.fi/bandbook/concert_add)
   * [concert_edit.html](https://lmelkas.users.cs.helsinki.fi/bandbook/concert_edit)
   * [favourite_list.html](https://lmelkas.users.cs.helsinki.fi/bandbook/favourites)

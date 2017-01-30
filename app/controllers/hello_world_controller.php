@@ -1,5 +1,8 @@
 <?php
 
+require 'app/models/band.php';
+require 'app/models/genre.php';
+
   class HelloWorldController extends BaseController{
 
     public static function index(){
@@ -8,7 +11,15 @@
     }
 
     public static function sandbox(){
-        View::make('helloworld.html');
+        $band = Band::findwithid(1);
+        $bands = Band::findall();
+        $genre = Genre::findwithid(1);
+        $genres = Genre::findall();
+        
+        Kint::dump($band);
+        Kint::dump($bands);
+        Kint::dump($genre);
+        Kint::dump($genres);
     }
     
     public static function home(){
