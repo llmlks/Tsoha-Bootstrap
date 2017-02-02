@@ -40,9 +40,15 @@ class BandController extends BaseController {
         ));
         
         $band->save();
-        $bandid = $band->id;
-        $redir = '/band/' . $bandid;
+        $id = $band->id;
         
-        Redirect::to('/band/1');
+        Redirect::to('/band/' . $id);
     }
+    
+    public static function home(){
+        
+        $bands = Band::findall();
+        
+        View::make('suunnitelmat/home.html', array('bands' => $bands));
+    }    
 }

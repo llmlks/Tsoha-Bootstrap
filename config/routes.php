@@ -13,7 +13,7 @@ $routes->get('/search', function() {
 });
 
 $routes->get('/', function() {
-    HelloWorldController::home();
+    BandController::home();
 });
 
 $routes->get('/login', function() {
