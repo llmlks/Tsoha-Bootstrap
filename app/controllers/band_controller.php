@@ -20,6 +20,10 @@ class BandController extends BaseController {
         
         $bands = Band::findwithname($_POST["search"]);
         
+        if ($bands == null) {
+            Redirect::to("/");
+        }
+        
         View::make('suunnitelmat/search_list.html', array('bands' => $bands));
     }
     

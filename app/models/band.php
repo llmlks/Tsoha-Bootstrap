@@ -57,8 +57,7 @@ class Band extends BaseModel {
         
         $bandname = '%' . $bandname . '%';
         
-        $query = DB::connection()->prepare('SELECT * FROM Band WHERE bandname '
-                . 'LIKE :bandname');
+        $query = DB::connection()->prepare('SELECT * FROM Band WHERE bandname = :bandname');
         $query->execute(array('bandname' => $bandname));
         
         $rows = $query->fetch();

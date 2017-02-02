@@ -5,6 +5,15 @@
     <h1>Welcome to BandBook!</h1>
 </div>
 
+<form method="post" action="{{base_path}}/search">
+    <div class="form-group">
+        <input name="search" class="form-control" placeholder="Search bands by name" type="text">
+    </div>
+    <div class="form-group">
+         <button type="submit" class="btn btn-primary">Search</button>  
+    </div>
+</form>
+
 <div class="form-group">
     <table class="table table-striped table-bordered">
         <thead>
