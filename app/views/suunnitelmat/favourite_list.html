@@ -13,11 +13,13 @@
         </thead>
         
         <tbody>
+            {% for band in favourites %}
             <tr>
-                <td><a href="#">Smaller Band</a></td>
+                <td><a href="{{base_path}}/band/{{band.id}}">{{band.bandname}}</a></td>
                 <td>21.02.2017, Stockholm</td>
                 <th><a class="btn btn-danger" href="#">Delete</a></th>
             </tr>
+            {% endfor %}
         </tbody>
     </table>
 </div>

@@ -5,9 +5,9 @@
     <h1>Welcome to BandBook!</h1>
 </div>
 
-<form>
+<form method="post" action="{{base_path}}/">
     <div class="form-group">
-        <input class="form-control" placeholder="Search bands by name, genre or band member's name" type="text">
+        <input name="search" class="form-control" placeholder="Search bands by name" type="text">
     </div>
     
     <button type="submit" class="btn btn-primary">Search</button>    

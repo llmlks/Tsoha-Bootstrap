@@ -3,9 +3,9 @@
 {% block content %}
 <h2>Search results</h2>
     
-<form>
+<form method="post" action="{{base_path}}/search">
     <div class="form-group">
-        <input class="form-control" placeholder="Search bands by name, genre or band member's name" type="text">
+        <input name="search" class="form-control" placeholder="Search bands by name" type="text">
     </div>
     <div class="form-group">
          <button type="submit" class="btn btn-primary">Search</button>  
@@ -24,19 +24,14 @@
         </thead>
         
         <tbody>
+            {% for band in bands %}
             <tr>
-                <td><a href="#">Smaller Band</a></td>
+                <td><a href="{{base_path}}/band/{{band.id}}">{{band.bandname}}</a></td>
                 <td>21.02.2017, Stockholm</td>
                 <td>Jack, Celia, Yuri</td>
                 <td>Rock, folk, punk</td>
             </tr>
-            
-            <tr>
-                <td><a href="#">The Band</a></td>
-                <td>23.03.2017, Tampere</td>
-                <td>Alice, Eoghan</td>
-                <td>Grunge, reggae, funk, pop</td>
-            </tr>
+            {% endfor %}
         </tbody>
     </table>
 </div>

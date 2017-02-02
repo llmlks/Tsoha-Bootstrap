@@ -1,4 +1,9 @@
-INSERT INTO Band (bandname, username, password) VALUES ('The Band', 'theband', '12345689');
+INSERT INTO Band (bandname, description, origin, username, password) VALUES 
+('The Band', 'The Band was formed in 2010 by siblings Alice and Eoghan. 
+They have so far released three singles and one LP, as well as toured some of 
+the biggest summer festivals in Europe. Their music is partly inspired by 
+Nirvana, The Red Hot Chilli Peppers and their likes.', 'United Kingdom', 
+'theband', '12345689');
 INSERT INTO Band (bandname, username, password) VALUES ('Smaller Band', 'smallband', 'smallband123');
 
 INSERT INTO BandFavourite (band_id, favourite) VALUES (1, 2);

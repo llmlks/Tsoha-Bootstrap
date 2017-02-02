@@ -58,13 +58,19 @@ class Band extends BaseModel {
         $bandname = '%' . $bandname . '%';
         
         $query = DB::connection()->prepare('SELECT * FROM Band WHERE bandname '
-                . 'LIKE :bandname LIMIT 1');
+                . 'LIKE :bandname');
         $query->execute(array('bandname' => $bandname));
         
-        $row = $query->fetch();
+        $rows = $query->fetch();
         
-        if ($row) {
-            $band = new Band(array(
+        $bands = array();
+        
+        if ($rows == null) {
+            return NULL;
+        }
+        
+        foreach ($rows as $row) {
+            $bands[] = new Band(array(
                 'bandname' => $row['bandname'],
                 'description' => $row['description'],
                 'origin' => $row['origin'],
@@ -72,13 +78,12 @@ class Band extends BaseModel {
                 'username' => $row['username'],
                 'password' => $row['password']
             ));
-            return band;
         }
         
-        return null;
+        return $bands;
     }
 
-    public static function save() {
+    public function save() {
         
         $query = DB::connection()->prepare('INSERT INTO Band (bandname, '
                 . 'description, origin, username, password) VALUES (:bandname, '
@@ -91,5 +96,28 @@ class Band extends BaseModel {
         $row = $query->fetch();
         
         $this->id = $row['id'];
+    }
+    
+    public static function favourites($id) {
+        
+        $query = DB::connection()->prepare('SELECT * FROM Band WHERE id IN '
+                . '(SELECT favourite FROM BandFavourite WHERE band_id = :id)');
+        $query->execute(array('id' => $id));
+        
+        $rows = $query->fetchAll();
+        $favourites = array();
+        
+        foreach ($rows as $row) {
+            $favourites[] = new Band(array(
+                'bandname' => $row['bandname'],
+                'description' => $row['description'],
+                'origin' => $row['origin'],
+                'id' => $row['id'],
+                'username' => $row['username'],
+                'password' => $row['password']
+            ));
+        }
+        
+        return $favourites;
     }
 }

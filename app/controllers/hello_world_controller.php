@@ -1,8 +1,5 @@
 <?php
 
-require 'app/models/band.php';
-require 'app/models/genre.php';
-
   class HelloWorldController extends BaseController{
 
     public static function index(){
