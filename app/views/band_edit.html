@@ -1,9 +1,9 @@
 {% extends "base.html" %}
     
 {% block content %}
-<h2>Edit: The Band</h2>
+<h2>Edit: {{band.bandname}}</h2>
     
-<form>
+<form method="post" action="{{base_path}}/band/{{band.id}}/edit">
     
     <div class="form-group">
         <label class="col-xs-3 control-label">Choose genres</label>
@@ -31,23 +31,22 @@
     
     <div class="form-group">
         <label class="col-xs-5">Name of the band</label>
-        <input class="form-control" value="The Band" type="text">
+        <input class="form-control" value="{{band.bandname}}" type="text" name="name">
     </div>
         
     <div class="form-group">
         <label class="col-xs-5">Country of origin</label>
-        <input class="form-control" value="United Kingdom" type="text">
+        <input class="form-control" value="{{band.origin}}" type="text" name="origin">
     </div>
         
     <div class="form-group">
         <label class="col-xs-5">Website</label>
-        <input class="form-control" type="text">
+        <input class="form-control" type="text" name="url">
     </div>
         
     <div class="form-group"> 
         <label class="col-xs-5">Description</label>
-        <textarea class="form-control">    The Band was formed in 2010 by siblings Alice and Eoghan. They have so far released three singles and one LP, as well as toured some of the biggest summer festivals in Europe. Their music is partly inspired by Nirvana, The Red Hot Chilli Peppers and their likes.
-        </textarea>
+        <textarea class="form-control" name="description">{{band.description}}</textarea>
     </div> 
         
     <div>
@@ -66,28 +65,21 @@
             </thead>
                 
             <tbody>
+                {% for member in members %}
                 <tr>
-                    <td>Alice</td>
-                    <td>Vocals, guitar</td>
-                    <td>13.01.2010</td>
-                    <td> - </td>
-                    <th><a class="btn btn-primary btn-sm" href="#">Edit</a></th>
-                    <th><a class="btn btn-danger btn-sm" href="#">Remove</a></th>
+                    <td>{{member.membername}}</td>
+                    <td>{{member.instruments}}</td>
+                    <td>{{member.joined}}</td>
+                    <td>{{member.resigned}}</td>
+                    <th><a class="btn btn-primary btn-sm" href="{{base_path}}/member/{{member.id}}/edit">Edit</a></th>
+                    <th><a class="btn btn-danger btn-sm" href="{{base_path}}/member/{{member.id}}/delete">Remove</a></th>
                 </tr>
-                    
-                <tr>
-                    <td>Eoghan</td>
-                    <td>Drums, backing vocals</td>
-                    <td>13.01.2010</td>
-                    <td> - </td>
-                    <th><a class="btn btn-primary btn-sm" href="#">Edit</a></th>
-                    <th><a class="btn btn-danger btn-sm" href="#">Remove</a></th>
-                </tr>
+                {% endfor %}
             </tbody>
         </table>
             
         <p>
-            <button class="btn btn-success">Add new band member</button>
+            <a class="btn btn-success" href="{{base_path}}/band/{{band.id}}/newmember">Add new band member</a>
         </p>
     </div>
         
@@ -105,12 +97,13 @@
             </thead>
                 
             <tbody>
+                (% for gig in gigs %}
                 <tr>
-                    <td>Klubi, Tampere</td>
-                    <td>23.03.2017</td>
-                    <td>8:00pm</td>
-                    <th><a class="btn btn-primary btn-sm" href="#">Edit</a></th>
-                    <th><a class="btn btn-danger btn-sm" href="#">Remove</a></th>
+                    <td>{{gig.location}}</td>
+                    <td>{{gig.date}}</td>
+                    <td>{{gig.time}}</td>
+                    <th><a class="btn btn-primary btn-sm" href="{{base_path}}/gig/{{gig.id}}/edit">Edit</a></th>
+                    <th><a class="btn btn-danger btn-sm" href="{{base_path}}/gig/{{gig.id}}/delete">Remove</a></th>
                 </tr>
             </tbody>
         </table>
@@ -118,7 +111,7 @@
     </div>
     
     <div class="form-group">
-        <button class="btn btn-success">Add new concert</button>
+        <a class="btn btn-success" href="{{base_path}}/band/{{band.id}}/newgig">Add new concert</a>
         <button type="submit" class="btn btn-primary" style="float: right">Save changes</button>
     </div>
 </form>

@@ -8,10 +8,10 @@ class Member extends BaseModel {
         parent::__construct($attributes);
     }
     
-    public static function findallbyband() {
+    public static function findallbyband($id) {
         
         $query = DB::connection()->prepare('SELECT * FROM Member WHERE band_id = :band_id');
-        $query->execute(array('band_id' => $this->band_id));
+        $query->execute(array('band_id' => $id));
         
         $rows = $query->fetchAll();
         $members = array();
@@ -74,7 +74,7 @@ class Member extends BaseModel {
 
     public static function update() {
 
-        $query = DB::connection()->prepare('UPDATE Member (membername, instruments, joined, resigned) VALUES (:name, :instr, :joined, :resigned) WHERE id = :id');
+        $query = DB::connection()->prepare('UPDATE Member SET membername = :name, instruments = :instr, joined = :joined, resigned = :resigned WHERE id = :id');
 
         $query->execute(array(
             'name' => $this->membername,

@@ -10,7 +10,7 @@ class BandLink extends BaseModel {
 
     public static function findAllByBand($id) {
 
-        $query = DB::connection()->prepare('SELECT * FROM BandLink WHERE band_id = :id)');
+        $query = DB::connection()->prepare('SELECT * FROM BandLink WHERE band_id = :id');
         $query->execute(array('id' => $id));
 
         $rows = $query->fetchAll();

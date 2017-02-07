@@ -5,20 +5,29 @@ class BandController extends BaseController {
     public static function band_show($id) {
 
         $band = Band::findwithid($id);
+        $genres = BandGenre::findgenresforband($id);
+        $members = Member::findallbyband($id);
+        $gigs = Gig::findAllByBand($id);
+        $links = BandLink::findAllByBand($id);
 
-        View::make('band_show.html', array('band' => $band));
-    }
-
-    public static function favourites($id) {
-
-        $favourites = Band::favourites($id);
-
-        View::make('favourite_list.html', array('favourites' => $favourites));
+        View::make('band_show.html', array(
+            'band' => $band,
+            'genres' => $genres,
+            'members' => $members,
+            'gigs' => $gigs,
+            'links' => $links
+        ));
     }
 
     public static function searchWithName() {
 
         $bands = Band::findwithname($_POST["search"]);
+        
+        foreach ($bands as $band) {
+            $band->nextgig = Gig::findBandsNextGig($band->id);
+            $band->genres = BandGenre::findgenresforband($band->id);
+            $band->members = Member::findallbyband($band->id);
+        }
 
         if ($bands == null) {
             Redirect::to("/");
@@ -52,6 +61,10 @@ class BandController extends BaseController {
     public static function home() {
 
         $bands = Band::findall();
+        
+        foreach ($bands as $band) {
+            $band->genres = BandGenre::findgenresforband($band->id);
+        }
 
         View::make('home.html', array('bands' => $bands));
     }
@@ -59,36 +72,37 @@ class BandController extends BaseController {
     public static function edit($id) {
 
         $band = Band::findwithid($id);
+        $members = Member::findallbyband($id);
+        $gigs = Gig::findAllByBand($id);
 
-        View::make('band_edit.html', array('attributes' => $band));
+        View::make('band_edit.html', array('band' => $band, 'members' => $members, 'gigs' => $gigs));
     }
 
     public static function update($id) {
 
         $params = $_POST;
         $attributes = array(
-            'bandname' => $params['bandname'],
+            'id' => $id,
+            'bandname' => $params['name'],
             'description' => $params['description'],
-            'origin' => $params['origin'],
-            'username' => $params['username'],
-            'password' => $params['password']
+            'origin' => $params['origin']
         );
         $band = new Band($attributes);
         $errors = $band->errors();
-        
+
         if (count($errors) > 0) {
             View::make('band_edit.html', array('errors' => $errors, 'attributes' => $attributes));
         } else {
-            $band->update();
-            
-            Redirect::to('/band/' . $id, array('message' => 'Your band\'s information details have been updated'));
+            $band->update($attributes);
+
+            Redirect::to('/band/' . $id, array('message' => 'Your band\'s information has been updated'));
         }
     }
 
     public static function delete($id) {
         
     }
-    
+
     public static function login() {
         View::make('login.html');
     }
@@ -105,5 +119,6 @@ class BandController extends BaseController {
             $_SESSION['user'] = $user->id;
             Redirect::to('/', array('message' => 'Welcome back ' . $user->username . '!'));
         }
-    }    
+    }
+
 }

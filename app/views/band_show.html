@@ -3,18 +3,36 @@
 {% block content %}
 <h2>{{band.bandname}}</h2>
 
-<button class="btn btn-primary btn-sm">Grunge</button>
-<button class="btn btn-primary btn-sm">Reggae</button>
-<button class="btn btn-primary btn-sm">Funk</button>
-<button class="btn btn-primary btn-sm">Pop</button>
+{% for genre in genres %}
+<button class="btn btn-primary btn-sm">{{genre.genrename}}</button>
+{% endfor %}
+
+{% if links %}
+<div>
+    <table>
+        <thead>
+            <tr>
+                <th>Links</th>
+            </tr>
+        </thead>
+        
+        <tbody>
+            {% for link in links %}
+            <tr>
+                <td><a href="{{link.url}}">{{link.linkname}}</a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endif %}
 
 <div>
     <ul style="list-style-type: none">
         <li><strong>Origin:</strong> {{band.origin}}</li>
-        <li><strong>Website:</strong> <a href="#">The Band</a></li>
     </ul>
-    
-    
+
+
     <p>{{band.description}}</p>
 </div>
 
@@ -22,7 +40,7 @@
 
 <div>
     <h2>Band members</h2>
-    
+
     <table class="table table-striped table-bordered">
         <thead>
             <tr>
@@ -32,28 +50,23 @@
                 <th>Member until</th>
             </tr>
         </thead>
-        
+
         <tbody>
+            {% for member in members %}
             <tr>
-                <td>Alice</td>
-                <td>Vocals, guitar</td>
-                <td>13.01.2010</td>
-                <td> - </td>
+                <td>{{member.membername}}</td>
+                <td>{{member.instruments}}</td>
+                <td>{{member.joined}}</td>
+                <td>{{member.resigned}}</td>
             </tr>
-            
-            <tr>
-                <td>Eoghan</td>
-                <td>Drums, backing vocals</td>
-                <td>13.01.2010</td>
-                <td> - </td>
-            </tr>
+            {% endfor %}
         </tbody>
     </table>
 </div>
 
 <div>
     <h2>Upcoming concerts</h2>
-    
+
     <table class="table table-striped table-bordered">
         <thead>
             <tr>
@@ -62,13 +75,15 @@
                 <th>Time</th>
             </tr>
         </thead>
-    
+
         <tbody>
+            {% for gig in gigs %}
             <tr>
-                <td>Klubi, Tampere</td>
-                <td>23.03.2017</td>
-                <td>8:00pm</td>
+                <td>{{gig.location}}</td>
+                <td>{{gig.date}}</td>
+                <td>{{gig.time}}</td>
             </tr>
+            {% endfor %}
         </tbody>
     </table>
 </div>

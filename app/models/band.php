@@ -2,7 +2,8 @@
 
 class Band extends BaseModel {
 
-    public $bandname, $description, $origin, $id, $username, $password;
+    public $bandname, $description, $origin, $id, $username, $password, $genres,
+            $nextgig, $members;
 
     public function __construct($attributes) {
         parent::__construct($attributes);
@@ -104,15 +105,17 @@ class Band extends BaseModel {
         $query->execute(array('id' => $this->id));
     }
 
-    public static function update() {
+    public static function update($params) {
+        
+        $updates = array('bandname' => $params['bandname'],
+            'description' => $params['description'],
+            'origin' => $params['origin'],
+            'id' => $params['id']);
 
-        $query = DB::connection()->prepare('UPDATE Band (bandname, '
-                . 'description, origin, username, password) VALUES (:bandname, '
-                . ':description, :origin, :username, :password) WHERE id = :id');
+        $query = DB::connection()->prepare('UPDATE Band SET bandname = :bandname, '
+                . 'description = :description, origin = :origin WHERE id = :id');
 
-        $query->execute(array('bandname' => $this->bandname, 'description' =>
-            $this->description, 'origin' => $this->origin, 'username' =>
-            $this->username, 'password' => $this->password, 'id' => $this->id));
+        $query->execute($updates);
     }
  
     public static function authenticate($username, $password) {

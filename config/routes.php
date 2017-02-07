@@ -72,14 +72,6 @@ $routes->post('/signup', function() {
     BandController::newband();
 });
 
-$routes->get('/favourites/:id', function($id) {
-    BandController::favourites($id);
-});
-
-$routes->get('/band/:id', function($id) {
-    BandController::band_show($id);
-});
-
 $routes->get('/search', function() {
     BandController::search_list();
 });
@@ -88,10 +80,42 @@ $routes->post('/search', function() {
     BandController::searchWithName();
 });
 
-$routes->get('/band/edit/:id', function($id) {
+$routes->get('/band/:id/edit', function($id) {
     BandController::edit($id);
 });
 
-$routes->post('/band/edit/:id', function($id) {
+$routes->post('/band/:id/edit', function($id) {
     BandController::update($id);
+});
+
+$routes->post('/band/:id/to_favourites', function() {
+    FavouriteController::newfavourite();
+});
+
+$routes->get('/favourites/:id', function($id) {
+    FavouriteController::favourites($id);
+});
+
+$routes->get('/member/:id/edit', function($id) {
+    MemberController::edit($id);
+});
+
+$routes->post('/member/:id/edit', function($id) {
+    MemberController::update($id);
+});
+
+$routes->get('/member/:id/delete', function($id) {
+    MemberController::delete($id);
+});
+
+$routes->get('/band/:id/newmember', function($id) {
+    MemberController::add($id);
+});
+
+$routes->post('/band/:id/newmember', function($id) {
+    MemberController::newMember($id);
+});
+
+$routes->get('/band/:id', function($id) {
+    BandController::band_show($id);
 });

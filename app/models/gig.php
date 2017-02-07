@@ -8,7 +8,7 @@ class Gig extends BaseModel {
         parent::__construct($attributes);
     }
 
-    public static function findallwithid($id) {
+    public static function findAllByBand($id) {
 
         $query = DB::connection()->prepare('SELECT * FROM Concert WHERE band_id = :id');
         $query->execute(array('id' => $id));
@@ -22,6 +22,26 @@ class Gig extends BaseModel {
         }
 
         return $gigs;
+    }
+    
+    public static function findBandsNextGig($id) {
+        
+        $query = DB::connection()->prepare('SELECT * FROM Concert WHERE band_id = :id ORDER BY (gigdate) DESC LIMIT 1');
+        $query->execute(array('id' => $id));
+        
+        $row = $query->fetch();
+        
+        if ($row) {
+            $gig = new Gig(array(
+                'band_id' => $row['band_id'],
+                'time' => $row['gigtime'],
+                'date' => $row['gigdate'],
+                'location' => $row['location']
+            ));
+            return $gig;
+        } else {
+            return null;
+        }
     }
 
     public static function save() {

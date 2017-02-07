@@ -1,17 +1,17 @@
 {% extends "base.html" %}
-    
+
 {% block content %}
 <h2>Search results</h2>
-    
+
 <form method="post" action="{{base_path}}/search">
     <div class="form-group">
         <input name="search" class="form-control" placeholder="Search bands by name" type="text">
     </div>
     <div class="form-group">
-         <button type="submit" class="btn btn-primary">Search</button>  
+        <button type="submit" class="btn btn-primary">Search</button>  
     </div>
 </form>
-    
+
 <div class="form-group">
     <table class="table table-striped table-bordered">
         <thead>
@@ -22,14 +22,26 @@
                 <th>Genres</th>
             </tr>
         </thead>
-        
+
         <tbody>
             {% for band in bands %}
             <tr>
                 <td><a href="{{base_path}}/band/{{band.id}}">{{band.bandname}}</a></td>
-                <td>21.02.2017, Stockholm</td>
-                <td>Jack, Celia, Yuri</td>
-                <td>Rock, folk, punk</td>
+                <td>                    
+                    {% if band.nextgig %}
+                    {{band.nextgig.time}}, {{band.nextgig.date}} {{band.nextgig.location}}
+                    {% endif %}
+                </td>
+                <td>
+                    {% for member in band.members %}
+                    {{member.membername}} 
+                    {% endfor %}
+                </td>
+                <td>                    
+                    {% for genre in band.genres %}
+                    <label class="label label-success">{{genre.genrename}}</label>
+                    {% endfor %}
+                </td>
             </tr>
             {% endfor %}
         </tbody>
