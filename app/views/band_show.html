@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h2>The Band</h2>
+<h2>{{band.bandname}}</h2>
 
 <button class="btn btn-primary btn-sm">Grunge</button>
 <button class="btn btn-primary btn-sm">Reggae</button>
@@ -10,12 +10,12 @@
 
 <div>
     <ul style="list-style-type: none">
-        <li><strong>Origin:</strong> United Kingdom</li>
+        <li><strong>Origin:</strong> {{band.origin}}</li>
         <li><strong>Website:</strong> <a href="#">The Band</a></li>
     </ul>
     
     
-    <p>The Band was formed in 2010 by siblings Alice and Eoghan. They have so far released three singles and one LP, as well as toured some of the biggest summer festivals in Europe. Their music is partly inspired by Nirvana, The Red Hot Chilli Peppers and their likes.</p>
+    <p>{{band.description}}</p>
 </div>
 
 <button class="btn btn-success">Add to favourites</button>

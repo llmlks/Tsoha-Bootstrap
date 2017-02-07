@@ -55,8 +55,7 @@ class Band extends BaseModel {
 
     public static function findwithname($bandname) {
 
-        $bandname = strtolower($bandname);
-        $bandname = '%' . $bandname . '%';
+        $bandname = '%' . strtolower($bandname) . '%';
 
         $query = DB::connection()->prepare('SELECT * FROM Band WHERE LOWER(bandname) LIKE :bandname');
         $query->execute(array('bandname' => $bandname));
@@ -98,17 +97,33 @@ class Band extends BaseModel {
         $this->id = $row['id'];
     }
 
-    public static function favourites($id) {
+    public static function delete() {
 
-        $query = DB::connection()->prepare('SELECT * FROM Band WHERE id IN '
-                . '(SELECT favourite FROM BandFavourite WHERE band_id = :id)');
-        $query->execute(array('id' => $id));
+        $query = DB::connection()->prepare('DELETE FROM Band WHERE id = :id');
 
-        $rows = $query->fetchAll();
-        $favourites = array();
+        $query->execute(array('id' => $this->id));
+    }
 
-        foreach ($rows as $row) {
-            $favourites[] = new Band(array(
+    public static function update() {
+
+        $query = DB::connection()->prepare('UPDATE Band (bandname, '
+                . 'description, origin, username, password) VALUES (:bandname, '
+                . ':description, :origin, :username, :password) WHERE id = :id');
+
+        $query->execute(array('bandname' => $this->bandname, 'description' =>
+            $this->description, 'origin' => $this->origin, 'username' =>
+            $this->username, 'password' => $this->password, 'id' => $this->id));
+    }
+ 
+    public static function authenticate($username, $password) {
+        
+        $query = DB::connection()->prepare('SELECT * FROM Band WHERE username = :username AND password = :password');
+        $query->execute(array('username' => $username, 'password' => $password));
+        
+        $row = $query->fetch();
+        
+        if ($row) {
+            $band = new Band(array(
                 'bandname' => $row['bandname'],
                 'description' => $row['description'],
                 'origin' => $row['origin'],
@@ -116,9 +131,13 @@ class Band extends BaseModel {
                 'username' => $row['username'],
                 'password' => $row['password']
             ));
+            return $band;
+        } else {
+            return null;
         }
-
-        return $favourites;
+    }    
+    
+    public static function validate_name($string) {
+        parent::validate_string_length($string, 2, 50);
     }
-
 }

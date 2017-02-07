@@ -3,7 +3,7 @@
 {% block content %}
 <h2>Search results</h2>
     
-<form method="post" action="{{base_path}}/search">
+<form>
     <div class="form-group">
         <input name="search" class="form-control" placeholder="Search bands by name" type="text">
     </div>
@@ -26,7 +26,7 @@
         <tbody>
             {% for band in bands %}
             <tr>
-                <td><a href="{{base_path}}/band/{{band.id}}">{{band.bandname}}</a></td>
+                <td><a href="#">{{band.bandname}}</a></td>
                 <td>21.02.2017, Stockholm</td>
                 <td>Jack, Celia, Yuri</td>
                 <td>Rock, folk, punk</td>

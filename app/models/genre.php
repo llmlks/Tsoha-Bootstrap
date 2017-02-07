@@ -41,17 +41,22 @@ class Genre extends BaseModel {
     
     public static function findwithname($genrename) {
         
-        $query = DB::connection()->prepare('SELECT * FROM Genre WHERE genrename'
-                . ' = :genrename LIMIT 1');
-        $query->execute(array('genrename' => '%' . $genrename . '%'));
+        $genrename = strtolower($genrename);
+        $search = '%' . $genrename . '%';
         
-        $row = $query->fetch();
-        if ($row) {
-            $genre = new Genre(array('id' => $row['id'], 'genrename' => 
+        $query = DB::connection()->prepare('SELECT * FROM Genre WHERE LOWER(genrename)'
+                . ' LIKE :genrename');
+        $query->execute(array('genrename' => $search));
+        
+        $rows = $query->fetchAll();
+        $genres = array();
+        
+        foreach ($rows as $row) {
+            $genres[] = new Genre(array('id' => $row['id'], 'genrename' => 
                 $row['genrename']));
-            return $genre;
         }
-        return null;        
+        
+        return $genres;        
     }
     
     public static function save() {
@@ -63,5 +68,23 @@ class Genre extends BaseModel {
         $row = $query->fetch();
         
         $this->id = $row['id'];
+    }
+    
+    public static function delete() {
+
+        $query = DB::connection()->prepare('DELETE FROM Genre WHERE id = :id');
+
+        $query->execute(array('id' => $this->id));
+    }
+
+    public static function update() {
+
+        $query = DB::connection()->prepare('UPDATE Genre (genrename) VALUES (:genrename) WHERE id = :id');
+
+        $query->execute(array('genrename' => $this->genrename, 'id' => $this->id));
+    }
+    
+    public static function validate_name($string, $min, $max) {
+        parent::validate_string_length($string, 2, 50);
     }
 }
