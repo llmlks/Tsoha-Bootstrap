@@ -19,11 +19,11 @@ CREATE TABLE BandGenre (
 );
 
 CREATE TABLE Concert (
+    id SERIAL PRIMARY KEY,
     band_id INTEGER REFERENCES Band(id),
-    gigtime time NOT NULL,
-    gigdate date NOT NULL,
-    location varchar(100) NOT NULL,
-    PRIMARY KEY(band_id, gigtime, gigdate)
+    gigtime varchar(5) NOT NULL,
+    gigdate varchar(10) NOT NULL,
+    location varchar(100) NOT NULL
 );
 
 CREATE TABLE BandFavourite (

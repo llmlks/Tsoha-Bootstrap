@@ -7,6 +7,7 @@ class Band extends BaseModel {
 
     public function __construct($attributes) {
         parent::__construct($attributes);
+        $this->validators = array('validate_name', 'validate_username', 'validate_password');
     }
 
     public static function findall() {
@@ -140,7 +141,21 @@ class Band extends BaseModel {
         }
     }    
     
-    public static function validate_name($string) {
-        parent::validate_string_length($string, 2, 50);
+    public function validate_name() {
+        if (parent::validate_string_length($this->bandname, 2, 50) == false) {
+            return 'Please insert a valid name (2-50 characters)';
+        }
+    }
+    
+    public function validate_username() {
+        if (parent::validate_string_length($this->username, 2, 20) == false) {
+            return 'Please insert a valid username (4-20 characters)';
+        }        
+    }
+    
+    public function validate_password() {
+        if (parent::validate_string_length($this->password, 6, 12) == false) {
+            return 'Please insert a valid password (6-12 characters)';
+        }        
     }
 }

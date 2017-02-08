@@ -1,10 +1,10 @@
 {% extends "base.html" %}
-    
+
 {% block content %}
 <h2>Edit: {{band.bandname}}</h2>
-    
+
 <form method="post" action="{{base_path}}/band/{{band.id}}/edit">
-    
+
     <div class="form-group">
         <label class="col-xs-3 control-label">Choose genres</label>
         <div class="col-xs-5">
@@ -24,34 +24,38 @@
             </select>
         </div>
     </div>
-    
+
     <div>
         <p>Hold down control to choose multiple options</p>
     </div>
-    
+
     <div class="form-group">
         <label class="col-xs-5">Name of the band</label>
         <input class="form-control" value="{{band.bandname}}" type="text" name="name">
     </div>
-        
+
     <div class="form-group">
         <label class="col-xs-5">Country of origin</label>
         <input class="form-control" value="{{band.origin}}" type="text" name="origin">
     </div>
-        
+
     <div class="form-group">
         <label class="col-xs-5">Website</label>
         <input class="form-control" type="text" name="url">
     </div>
-        
+
     <div class="form-group"> 
         <label class="col-xs-5">Description</label>
         <textarea class="form-control" name="description">{{band.description}}</textarea>
     </div> 
-        
+
+    <button type="submit" class="btn btn-primary" style="float: right">Save changes</button>
+    
+</form>
+    
     <div>
         <h2>Band members</h2>
-            
+
         <table class="table table-striped table-bordered">
             <thead>
                 <tr>
@@ -63,7 +67,7 @@
                     <th></th>
                 </tr>
             </thead>
-                
+
             <tbody>
                 {% for member in members %}
                 <tr>
@@ -77,15 +81,15 @@
                 {% endfor %}
             </tbody>
         </table>
-            
+
         <p>
             <a class="btn btn-success" href="{{base_path}}/band/{{band.id}}/newmember">Add new band member</a>
         </p>
     </div>
-        
+
     <div>
         <h2>Concerts</h2>
-            
+
         <table class="table table-striped table-bordered">
             <thead>
                 <tr>
@@ -95,9 +99,9 @@
                     <th></th>
                 </tr>
             </thead>
-                
+
             <tbody>
-                (% for gig in gigs %}
+                {% for gig in gigs %}
                 <tr>
                     <td>{{gig.location}}</td>
                     <td>{{gig.date}}</td>
@@ -105,14 +109,13 @@
                     <th><a class="btn btn-primary btn-sm" href="{{base_path}}/gig/{{gig.id}}/edit">Edit</a></th>
                     <th><a class="btn btn-danger btn-sm" href="{{base_path}}/gig/{{gig.id}}/delete">Remove</a></th>
                 </tr>
+                {% endfor %}
             </tbody>
         </table>
-            
+
     </div>
-    
+
     <div class="form-group">
         <a class="btn btn-success" href="{{base_path}}/band/{{band.id}}/newgig">Add new concert</a>
-        <button type="submit" class="btn btn-primary" style="float: right">Save changes</button>
     </div>
-</form>
 {% endblock %}

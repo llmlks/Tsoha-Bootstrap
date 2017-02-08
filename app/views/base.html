@@ -39,12 +39,20 @@
                 <div class="collapse navbar-collapse" id="navigation">
                     <ul class="nav navbar-nav">
                         <!-- Navigaation linkit -->
-                        <li><a href="{{base_path}}">Home</a></li>           
+                        <li><a href="{{base_path}}">Home</a></li>  
+                        {% if user %}
+                        <li><a href="{{base_path}}/band/{{user}}">Profile</a></li>
+                        <li><a href="{{base_path}}/favourites/{{user}}">Favourites</a></li>
+                        {% endif %}
                     </ul>
                     
                     <ul class="nav navbar-nav navbar-right">
+                        {% if user %}
+                        <li><a href="{{base_path}}/band/{{user}}/edit">Edit your information</a></li>
+                        {% else %}
                         <li><a href="{{base_path}}/login">Log In</a></li>
                         <li><a href="{{base_path}}/signup">Sign Up</a></li> 
+                        {% endif %}
                     </ul>
                 </div>
             </div>

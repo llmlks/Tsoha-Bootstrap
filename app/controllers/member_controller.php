@@ -2,7 +2,7 @@
 
 class MemberController extends BaseController {
     
-    public static function add($id) {
+    public static function add() {
 
         View::make('bandmember_add.html');
     }    

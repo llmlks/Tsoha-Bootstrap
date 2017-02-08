@@ -21,21 +21,28 @@ class BaseModel {
         $errors = array();
 
         foreach ($this->validators as $validator) {
-            // Kutsu validointimetodia tässä ja lisää sen palauttamat virheet errors-taulukkoon
+            $errors[] = $this->{$validator}();
         }
 
         return $errors;
     }
 
     public function validate_string_length($string, $min, $max) {
-        $errors = array();
-        if (strlen($string) == 0 || $string == null) {
-            $errors[] = 'Please insert ';
+        if ($string == null) {
+            return false;
         }
         if (strlen($string) < $min || strlen($string) > $max) {
-            $errors[] = ' has to be ' . $min . ' characters long';
+            return false;
         }
         
-        return $errors;
+        return true;
+    }
+    
+    public function validate_time($time) {
+        
+    }
+    
+    public function validate_date($date) {
+        
     }
 }

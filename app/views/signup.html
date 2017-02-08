@@ -3,16 +3,22 @@
 {% block content %}
 <h2>Sign up</h2>
 
+<ul>
+    {% for error in errors %}
+    <li>{{error}}</li>  
+    {% endfor %}
+</ul>
+
 <form method="post" action="{{base_path}}/signup">
 
     <div class="form-group">
         <label>Band's name</label>
-        <input name="bandname" class="form-control" type="text">
+        <input name="bandname" class="form-control" type="text" value="{{attributes.bandname}}">
     </div>
-    
+
     <div class="form-group">
         <label>Band's origin</label>
-        <input name="origin" class="form-control" type="text">
+        <input name="origin" class="form-control" type="text" value="{{attributes.origin}}">
     </div>
 
     <div class="form-group">
@@ -22,21 +28,21 @@
 
     <div class="form-group">
         <label>Description</label>
-        <input name="description" class="form-control" type="text">
+        <input name="description" class="form-control" type="text" value="{{attributes.description}}">
     </div>
-    
+
     <div class="form-group">
         <label>Username</label>
-        <input name="username" class="form-control" type="text">
+        <input name="username" class="form-control" type="text" value="{{attributes.username}}">
     </div>
 
     <div class="form-group">
         <label>Password</label>
         <input name="password" class="form-control" type="password">
     </div>
-    
+
     <button type="submit" class="btn btn-success">Sign up</button>
-    
+
 </form>
 
 {% endblock %}

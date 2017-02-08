@@ -16,6 +16,6 @@ INSERT INTO BandGenre (band_id, genre_id) VALUES (2, 2);
 
 INSERT INTO BandLink (band_id, linkname, url) VALUES (1, 'Google', 'http://google.com');
 
-INSERT INTO Concert (band_id, gigtime, gigdate, location) VALUES (2, time '01:00', date '2017-10-28', 'Klubi, Tampere');
+INSERT INTO Concert (band_id, gigtime, gigdate, location) VALUES (2, '01:00', '28.02.2016', 'Klubi, Tampere');
 
 INSERT INTO Member (band_id, membername, instruments, joined) VALUES (1, 'Anna', 'didgeridoo', date '2010-03-17');

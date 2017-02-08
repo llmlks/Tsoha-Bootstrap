@@ -2,7 +2,7 @@
 
 class Favourite extends BaseModel {
 
-    private $band_id, $favourite;
+    public $band_id, $favourite;
 
     public function __construct($attributes) {
         parent::__construct($attributes);
@@ -29,6 +29,21 @@ class Favourite extends BaseModel {
         }
 
         return $favourites;
+    }
+    
+    public static function isInFavourites($id) {
+        
+        $query = DB::connection()->prepare('SELECT favourite FROM BandFavourite WHERE band_id = :id');
+        $query->execute(array('id' => $_SESSION['user']));
+        
+        $rows = $query->fetchAll();
+        
+        foreach ($rows as $row) {
+            if ($row['favourite'] == $id) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public function saveFavourite() {

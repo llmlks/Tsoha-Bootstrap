@@ -15,7 +15,7 @@
                 <th>Links</th>
             </tr>
         </thead>
-        
+
         <tbody>
             {% for link in links %}
             <tr>
@@ -36,7 +36,13 @@
     <p>{{band.description}}</p>
 </div>
 
-<button class="btn btn-success">Add to favourites</button>
+{% if in_favourites %}
+This band is added to your favourites!
+{% elseif user%}
+<form method="post" action="{{base_path}}/band/{{band.id}}/to_favourites">
+    <button class="btn btn-success">Add to favourites</button>
+</form>
+{% endif %}
 
 <div>
     <h2>Band members</h2>

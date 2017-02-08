@@ -88,12 +88,16 @@ $routes->post('/band/:id/edit', function($id) {
     BandController::update($id);
 });
 
-$routes->post('/band/:id/to_favourites', function() {
-    FavouriteController::newfavourite();
+$routes->post('/band/:id/to_favourites', function($id) {
+    FavouriteController::newfavourite($id);
 });
 
 $routes->get('/favourites/:id', function($id) {
     FavouriteController::favourites($id);
+});
+
+$routes->get('/favourite/:id/delete', function($id) {
+    FavouriteController::delete($id);
 });
 
 $routes->get('/member/:id/edit', function($id) {
@@ -108,12 +112,32 @@ $routes->get('/member/:id/delete', function($id) {
     MemberController::delete($id);
 });
 
-$routes->get('/band/:id/newmember', function($id) {
-    MemberController::add($id);
+$routes->get('/band/:id/newmember', function() {
+    MemberController::add();
 });
 
 $routes->post('/band/:id/newmember', function($id) {
     MemberController::newMember($id);
+});
+
+$routes->get('/gig/:id/edit', function($id) {
+    GigController::edit($id);
+});
+
+$routes->post('/gig/:id/edit', function($id){
+    GigController::update($id);
+});
+
+$routes->get('/gig/:id/delete', function($id) {
+    GigController::delete($id);
+});
+
+$routes->get('/band/:id/newgig', function() {
+    GigController::add();
+});
+
+$routes->post('/band/:id/newgig', function($id) {
+    GigController::newGig($id);
 });
 
 $routes->get('/band/:id', function($id) {

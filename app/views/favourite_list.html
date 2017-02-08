@@ -23,7 +23,7 @@
                     {{band.nextgig.gigtime}}, {{band.nextgig.gigdate}}, {{band.nextgig.location}}
                     {% endif %}
                 </td>
-                <th><a class="btn btn-danger" href="#">Delete</a></th>
+                <th><a class="btn btn-danger" href="{{base_path}}/favourite/{{band.id}}/delete">Delete</a></th>
             </tr>
             {% endfor %}
         </tbody>
