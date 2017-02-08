@@ -50,72 +50,76 @@
     </div> 
 
     <button type="submit" class="btn btn-primary" style="float: right">Save changes</button>
-    
+
 </form>
-    
-    <div>
-        <h2>Band members</h2>
 
-        <table class="table table-striped table-bordered">
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Instruments</th>
-                    <th>Member from</th>
-                    <th>Member until</th>
-                    <th></th>
-                    <th></th>
-                </tr>
-            </thead>
+<div>
+    <h2>Band members</h2>
 
-            <tbody>
-                {% for member in members %}
-                <tr>
-                    <td>{{member.membername}}</td>
-                    <td>{{member.instruments}}</td>
-                    <td>{{member.joined}}</td>
-                    <td>{{member.resigned}}</td>
-                    <th><a class="btn btn-primary btn-sm" href="{{base_path}}/member/{{member.id}}/edit">Edit</a></th>
-                    <th><a class="btn btn-danger btn-sm" href="{{base_path}}/member/{{member.id}}/delete">Remove</a></th>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+    <table class="table table-striped table-bordered">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Instruments</th>
+                <th>Member from</th>
+                <th>Member until</th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
 
-        <p>
-            <a class="btn btn-success" href="{{base_path}}/band/{{band.id}}/newmember">Add new band member</a>
-        </p>
-    </div>
+        <tbody>
+            {% for member in members %}
+            <tr>
+                <td>{{member.membername}}</td>
+                <td>{{member.instruments}}</td>
+                <td>{{member.joined}}</td>
+                <td>{{member.resigned}}</td>
+                <th><a class="btn btn-primary btn-sm" href="{{base_path}}/member/{{member.id}}/edit">Edit</a></th>
+                <th><a class="btn btn-danger btn-sm" href="{{base_path}}/member/{{member.id}}/delete">Remove</a></th>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 
-    <div>
-        <h2>Concerts</h2>
+    <p>
+        <a class="btn btn-success" href="{{base_path}}/band/{{band.id}}/newmember">Add new band member</a>
+    </p>
+</div>
 
-        <table class="table table-striped table-bordered">
-            <thead>
-                <tr>
-                    <th>Location</th>
-                    <th>Date</th>
-                    <th>Time</th>
-                    <th></th>
-                </tr>
-            </thead>
+<div>
+    <h2>Concerts</h2>
 
-            <tbody>
-                {% for gig in gigs %}
-                <tr>
-                    <td>{{gig.location}}</td>
-                    <td>{{gig.date}}</td>
-                    <td>{{gig.time}}</td>
-                    <th><a class="btn btn-primary btn-sm" href="{{base_path}}/gig/{{gig.id}}/edit">Edit</a></th>
-                    <th><a class="btn btn-danger btn-sm" href="{{base_path}}/gig/{{gig.id}}/delete">Remove</a></th>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+    <table class="table table-striped table-bordered">
+        <thead>
+            <tr>
+                <th>Location</th>
+                <th>Date</th>
+                <th>Time</th>
+                <th></th>
+            </tr>
+        </thead>
 
-    </div>
+        <tbody>
+            {% for gig in gigs %}
+            <tr>
+                <td>{{gig.location}}</td>
+                <td>{{gig.date}}</td>
+                <td>{{gig.time}}</td>
+                <th><a class="btn btn-primary btn-sm" href="{{base_path}}/gig/{{gig.id}}/edit">Edit</a></th>
+                <th><a class="btn btn-danger btn-sm" href="{{base_path}}/gig/{{gig.id}}/delete">Remove</a></th>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 
-    <div class="form-group">
-        <a class="btn btn-success" href="{{base_path}}/band/{{band.id}}/newgig">Add new concert</a>
-    </div>
+</div>
+
+<div class="form-group">
+    <a class="btn btn-success" href="{{base_path}}/band/{{band.id}}/newgig">Add new concert</a>
+</div>
+
+<div class="form-group">
+    <a class="btn btn-danger btn-lg" href="{{base_path}}/band/{{band.id}}/delete">Delete your account</a>
+</div>
 {% endblock %}

@@ -80,12 +80,16 @@ $routes->post('/search', function() {
     BandController::searchWithName();
 });
 
-$routes->get('/band/:id/edit', function($id) {
-    BandController::edit($id);
+$routes->get('/band/:id/edit', function() {
+    BandController::edit();
 });
 
-$routes->post('/band/:id/edit', function($id) {
-    BandController::update($id);
+$routes->post('/band/:id/edit', function() {
+    BandController::update();
+});
+
+$routes->get('/band/:id/delete', function() {
+    BandController::delete();
 });
 
 $routes->post('/band/:id/to_favourites', function($id) {

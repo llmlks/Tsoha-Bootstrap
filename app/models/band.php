@@ -99,11 +99,35 @@ class Band extends BaseModel {
         $this->id = $row['id'];
     }
 
-    public static function delete() {
+    public static function delete($id) {
+        
+        $query = DB::connection()->prepare('DELETE FROM BandGenre WHERE band_id = :id');
+        
+        $query->execute(array('id' => $id));
+        
+        $query = DB::connection()->prepare('DELETE FROM Concert WHERE band_id = :id');
+        
+        $query->execute(array('id' => $id));
+        
+        $query = DB::connection()->prepare('DELETE FROM BandFavourite WHERE band_id = :id');
+
+        $query->execute(array('id' => $id));
+
+        $query = DB::connection()->prepare('DELETE FROM BandFavourite WHERE favourite = :id');
+
+        $query->execute(array('id' => $id));
+
+        $query = DB::connection()->prepare('DELETE FROM BandLink WHERE band_id = :id');
+
+        $query->execute(array('id' => $id));
+
+        $query = DB::connection()->prepare('DELETE FROM Member WHERE band_id = :id');
+
+        $query->execute(array('id' => $id));
 
         $query = DB::connection()->prepare('DELETE FROM Band WHERE id = :id');
 
-        $query->execute(array('id' => $this->id));
+        $query->execute(array('id' => $id));
     }
 
     public static function update($params) {

@@ -21,8 +21,8 @@ CREATE TABLE BandGenre (
 CREATE TABLE Concert (
     id SERIAL PRIMARY KEY,
     band_id INTEGER REFERENCES Band(id),
-    gigtime varchar(5) NOT NULL,
-    gigdate varchar(10) NOT NULL,
+    gigtime time NOT NULL,
+    gigdate date NOT NULL,
     location varchar(100) NOT NULL
 );
 

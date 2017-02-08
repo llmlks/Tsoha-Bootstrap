@@ -100,6 +100,6 @@ class Gig extends BaseModel {
 
         $query = DB::connection()->prepare('DELETE FROM Concert WHERE id = :id');
 
-        $query->execute(array('id' => $this->id));
+        $query->execute(array('id' => $id));
     }
 }

@@ -93,19 +93,20 @@ class BandController extends BaseController {
 
     public static function edit() {
 
-        $id = $_SESSION['user'];
-        $band = Band::findwithid($id);
+        $band = self::get_user_logged_in();
+        $id = $band->id;
         $members = Member::findallbyband($id);
         $gigs = Gig::findAllByBand($id);
 
-        View::make('band_edit.html', array('band' => $band, 'members' => $members, 'gigs' => $gigs, 'user' => $_SESSION['user']));
+        View::make('band_edit.html', array('band' => $band, 'members' => $members, 'gigs' => $gigs, 'user' => $id));
     }
 
     public static function update() {
 
         $params = $_POST;
+        $id = self::get_user_logged_in()->id;
         $attributes = array(
-            'id' => $_SESSION['user'],
+            'id' => $id,
             'bandname' => $params['name'],
             'description' => $params['description'],
             'origin' => $params['origin']
@@ -114,16 +115,24 @@ class BandController extends BaseController {
         $errors = $band->errors();
 
         if (count($errors) > 0) {
-            View::make('band_edit.html', array('errors' => $errors, 'attributes' => $attributes, 'user' => $_SESSION['user']));
+            View::make('band_edit.html', array('errors' => $errors, 'attributes' => $attributes, 'user' => $id));
         } else {
             $band->update($attributes);
 
-            Redirect::to('/band/' . $_SESSION['user'], array('message' => 'Your band\'s information has been updated', 'user' => $_SESSION['user']));
+            Redirect::to('/band/' . $id, array('message' => 'Your band\'s information has been updated', 'user' => $id));
         }
     }
 
-    public static function delete($id) {
-        
+    public static function delete() {
+
+        $band = self::get_user_logged_in();
+        $band->delete($band->id);
+
+        session_unset();
+
+        session_destroy();
+
+        Redirect::to('/');
     }
 
     public static function login() {
