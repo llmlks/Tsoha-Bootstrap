@@ -134,6 +134,14 @@ class BandController extends BaseController {
 
         Redirect::to('/');
     }
+    
+    public static function logout() {
+        session_unset();
+
+        session_destroy();
+
+        Redirect::to('/');        
+    }
 
     public static function login() {
         View::make('login.html');

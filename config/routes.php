@@ -92,6 +92,10 @@ $routes->get('/band/:id/delete', function() {
     BandController::delete();
 });
 
+$routes->get('/logout', function() {
+    BandController::logout();
+});
+
 $routes->post('/band/:id/to_favourites', function($id) {
     FavouriteController::newfavourite($id);
 });
