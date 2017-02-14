@@ -19,7 +19,7 @@ Yleisiä linkkejä:
 
 ## Työn aihe
 
-BandBook on web-pohjainen bändigalleria, jonne rekisteröityneitä bändejä voi selata ja etsiä joko yhden tai useamman genren, nimen tai bändin jäsenen perusteella. Rekisteröityneet bändit voivat myös seurata muita lisäämällä ne omaan suosikkeihinsa.
+BandBook on web-pohjainen bändigalleria, jonne rekisteröityneitä bändejä voi selata ja etsiä joko genren tai nimen perusteella. Jokaisen session aikana käyttäjä voi antaa yhden äänen/bändi. Äänen voi myös perua, jos sen tekee saman session aikana. Rekisteröityneet bändit voivat myös seurata muita lisäämällä ne omiin suosikkeihinsa.
 
 ## Kirjautuminen
 
