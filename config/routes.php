@@ -168,6 +168,14 @@ $routes->get('/genre_search/:id', function($id) {
     GenreController::find($id);
 });
 
+$routes->get('/bandgenre/:id/delete', 'check_logged_in', function($id) {
+    BandGenreController::delete($id);
+});
+
+$routes->get('/bandgenre/:id/add', 'check_logged_in', function($id) {
+    BandGenreController::add($id);
+});
+
 $routes->get('/band/:id', function($id) {
     BandController::band_show($id);
 });

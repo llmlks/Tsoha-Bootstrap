@@ -11,7 +11,7 @@ class FavouriteController extends BaseController {
         }
         
         foreach ($favourites as $band) {
-            $band->nextgig = Gig::findBandsNextGig($id);
+            $band->nextgig = Gig::findBandsNextGig($band->id);
         }
 
         View::make('favourite_list.html', array('favourites' => $favourites, 'user' => $user));

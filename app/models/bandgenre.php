@@ -2,7 +2,7 @@
 
 class BandGenre extends BaseModel {
 
-    private $band_id, $genre_id;
+    public $band_id, $genre_id;
 
     public function __construct($attributes) {
         parent::__construct($attributes);
@@ -34,6 +34,10 @@ class BandGenre extends BaseModel {
         $rows = $query->fetchAll();
         $bands = array();
 
+        if ($rows == null) {
+            return NULL;
+        }
+
         foreach ($rows as $row) {
             $bands[] = new Band(array(
                 'bandname' => $row['bandname'],
@@ -47,6 +51,25 @@ class BandGenre extends BaseModel {
 
         return $bands;
     }
+    
+    public static function findgenresexcludingbands($id) {
+
+        $query = DB::connection()->prepare('SELECT * FROM Genre WHERE id NOT IN (SELECT genre_id FROM BandGenre WHERE band_id = :band)');
+        $query->execute(array('band' => $id));
+
+        $rows = $query->fetchAll();
+        $genres = array();
+
+        foreach ($rows as $row) {
+            $genres[] = new Genre(array(
+                'genrename' => $row['genrename'],
+                'id' => $row['id']
+            ));
+        }
+
+        return $genres;
+        
+    }
 
     public function save() {
 
@@ -56,7 +79,7 @@ class BandGenre extends BaseModel {
             $this->genre_id));
     }
 
-    public static function delete() {
+    public function delete() {
 
         $query = DB::connection()->prepare('DELETE FROM BandGenre WHERE genre_id = :genre AND band_id = :band_id');
 

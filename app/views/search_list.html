@@ -3,15 +3,23 @@
 {% block content %}
 <h2>Search results</h2>
 
+<label>Search bands by genre</label>
+<div class="form-group">
+    {% for genre in genres %}
+    <a class="btn btn-primary btn-sm" href="{{base_path}}/genre_search/{{genre.id}}">{{genre.genrename}}</a>
+    {% endfor %}
+</div>
+
 <form method="post" action="{{base_path}}/search">
     <div class="form-group">
         <input name="search" class="form-control" placeholder="Search bands by name" type="text">
     </div>
     <div class="form-group">
-        <button type="submit" class="btn btn-primary">Search</button>  
+        <button type="submit" class="btn btn-success">Search</button>  
     </div>
 </form>
 
+{% if bands > 0 %}
 <div class="form-group">
     <table class="table table-striped table-bordered">
         <thead>
@@ -39,7 +47,7 @@
                 </td>
                 <td>                    
                     {% for genre in band.genres %}
-                    <label class="label label-success">{{genre.genrename}}</label>
+                    <a class="btn btn-success btn-xs" href="{{base_path}}/genre_search/{{genre.id}}">{{genre.genrename}}</a>
                     {% endfor %}
                 </td>
             </tr>
@@ -47,4 +55,7 @@
         </tbody>
     </table>
 </div>
+{% else %}
+{{message}}
+{% endif %}
 {% endblock %}

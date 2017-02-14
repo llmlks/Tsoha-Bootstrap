@@ -30,22 +30,23 @@ class BandController extends BaseController {
     public static function searchWithName() {
 
         $bands = Band::findwithname($_POST["search"]);
+        $genres = Genre::findall();
         $user = null;
         if ($_SESSION) {
             $user = $_SESSION['user'];
         }
 
-        foreach ($bands as $band) {
-            $band->nextgig = Gig::findBandsNextGig($band->id);
-            $band->genres = BandGenre::findgenresforband($band->id);
-            $band->members = Member::findallbyband($band->id);
+        if ($bands) {
+            foreach ($bands as $band) {
+                $band->nextgig = Gig::findBandsNextGig($band->id);
+                $band->genres = BandGenre::findgenresforband($band->id);
+                $band->members = Member::findallbyband($band->id);
+            }
         }
 
-        if ($bands == null) {
-            Redirect::to("/", array('user' => $user));
-        }
+        $message = "There were no matches to your search";
 
-        View::make('search_list.html', array('bands' => $bands, 'user' => $user));
+        View::make('search_list.html', array('genres' => $genres, 'bands' => $bands, 'user' => $user, 'message' => $message));
     }
 
     public static function signup() {
@@ -61,18 +62,18 @@ class BandController extends BaseController {
             'description' => $params['description'],
             'origin' => $params['origin'],
             'username' => $params['username'],
-            'pas;sword' => $params['password']
+            'password' => $params['password']
         );
 
         $band = new Band($attributes);
         $errors = $band->errors();
 
         if (count($errors) > 0) {
-            View::make('signup.html', array('errors' => $errors, 'attributes' => $attributes, 'user' => $_SESSION['user']));
+            View::make('signup.html', array('errors' => $errors, 'attributes' => $attributes));
         } else {
             $band->save();
 
-            Redirect::to('/login', array('message' => 'Your have now successfully registered and can now log in with your username and password. Welcome!', 'user' => $_SESSION['user']));
+            Redirect::to('/login', array('message' => 'Your have successfully registered and can now log in with your username and password. Welcome!'));
         }
     }
 
@@ -99,30 +100,34 @@ class BandController extends BaseController {
         $members = Member::findallbyband($id);
         $gigs = Gig::findAllByBand($id);
         $links = BandLink::findAllByBand($id);
-        $genres = Genre::findall();
+        $genres = BandGenre::findgenresexcludingbands($id);
+        $bandgenres = BandGenre::findgenresforband($id);
 
-        View::make('band_edit.html', array('links' => $links, 'band' => $band, 'members' => $members, 'gigs' => $gigs, 'user' => $id, 'genres' => $genres));
+        View::make('band_edit.html', array('bandgenres' => $bandgenres, 'links' => $links, 'band' => $band, 'members' => $members, 'gigs' => $gigs, 'user' => $id, 'genres' => $genres));
     }
 
     public static function update() {
 
         $params = $_POST;
-        $id = self::get_user_logged_in()->id;
+        $user = self::get_user_logged_in();
+        $id = $user->id;
         $attributes = array(
             'id' => $id,
             'bandname' => $params['name'],
             'description' => $params['description'],
-            'origin' => $params['origin']
+            'origin' => $params['origin'],
+            'username' => $user->username,
+            'password' => $user->password
         );
         $band = new Band($attributes);
         $members = Member::findallbyband($id);
         $gigs = Gig::findAllByBand($id);
         $links = BandLink::findAllByBand($id);
         $genres = Genre::findall();
-        $errors = $band->errors();
+        $error = $band->validate_name();
 
-        if (count($errors) > 0) {
-            View::make('band_edit.html', array('errors' => $errors, 'links' => $links, 'band' => $band, 'members' => $members, 'gigs' => $gigs, 'user' => $id, 'genres' => $genres));
+        if ($error) {
+            View::make('band_edit.html', array('error' => $error, 'links' => $links, 'band' => $band, 'members' => $members, 'gigs' => $gigs, 'user' => $id, 'genres' => $genres));
         } else {
             $band->update($attributes);
 
@@ -141,10 +146,10 @@ class BandController extends BaseController {
 
         Redirect::to('/');
     }
-    
+
     public static function logout() {
         $_SESSION['user'] = null;
-        Redirect::to('/', array('message' => 'You have logged out'));        
+        Redirect::to('/', array('message' => 'You have successfully logged out'));
     }
 
     public static function login() {

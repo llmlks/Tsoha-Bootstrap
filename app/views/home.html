@@ -9,18 +9,21 @@
     {% endif %}
 </div>
 
-<ul>
+<label>Search bands by genre</label>
+<div class="form-group">
     {% for genre in genres %}
-    <li><a href="{{base_path}}/genre_search/{{genre.id}}">{{genre.name}}</a></li>
+    <a class="btn btn-primary btn-sm" href="{{base_path}}/genre_search/{{genre.id}}">{{genre.genrename}}</a>
     {% endfor %}
-</ul>
+</div>
 
 <form method="post" action="{{base_path}}/search">
+
     <div class="form-group">
         <input name="search" class="form-control" placeholder="Search bands by name" type="text">
     </div>
+
     <div class="form-group">
-        <button type="submit" class="btn btn-primary">Search</button>  
+        <button type="submit" class="btn btn-success">Search</button>  
     </div>
 </form>
 
@@ -43,7 +46,7 @@
                 <td>{{band.origin}}</td>
                 <td> 
                     {% for genre in band.genres %}
-                    <label class="label label-success">{{genre.genrename}}</label>
+                    <a class="btn btn-success btn-xs" href="{{base_path}}/genre_search/{{genre.id}}">{{genre.genrename}}</a>
                     {% endfor %}
                 </td>
             </tr>

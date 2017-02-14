@@ -54,7 +54,7 @@ class Favourite extends BaseModel {
             $this->favourite));
     }
 
-    public static function deleteFavourite() {
+    public function deleteFavourite() {
 
         $query = DB::connection()->prepare('DELETE FROM BandFavourite WHERE favourite = :favourite AND band_id = :band_id');
 

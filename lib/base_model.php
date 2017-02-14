@@ -21,7 +21,9 @@ class BaseModel {
         $errors = array();
 
         foreach ($this->validators as $validator) {
-            $errors[] = $this->{$validator}();
+            if ($this->{$validator}()) {
+                $errors[] = $this->{$validator}();
+            }
         }
 
         return $errors;
