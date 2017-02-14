@@ -5,17 +5,17 @@ Yleisiä linkkejä:
 * [Linkki sovellukseen](https://lmelkas.users.cs.helsinki.fi/bandbook)
 * [Linkki dokumentaatioon](doc/dokumentaatio.pdf)
 * Linkkeja sovelluksen staattisille HTML-sivuille
-  * [band_edit.html](https://lmelkas.users.cs.helsinki.fi/bandbook/static/band_edit)
-  * [bandmember_add.html](https://lmelkas.users.cs.helsinki.fi/bandbook/static/bandmember_add)
-  * [bandmember_edit.html](https://lmelkas.users.cs.helsinki.fi/bandbook/static/bandmember_edit)
-  * [band_show.html](https://lmelkas.users.cs.helsinki.fi/bandbook/static/band_show)
-  * [concert_add.html](https://lmelkas.users.cs.helsinki.fi/bandbook/static/concert_add)
-  * [concert_edit.html](https://lmelkas.users.cs.helsinki.fi/bandbook/static/concert_edit)
-  * [favourite_list.html](https://lmelkas.users.cs.helsinki.fi/bandbook/static/favourite_list)
-  * [home.html](https://lmelkas.users.cs.helsinki.fi/bandbook/static/home)
-  * [login.html](https://lmelkas.users.cs.helsinki.fi/bandbook/static/login)
-  * [search_list.html](https://lmelkas.users.cs.helsinki.fi/bandbook/static/search_list)
-  * [signup.html](https://lmelkas.users.cs.helsinki.fi/bandbook/static/signup)
+  * [band_edit.html](https://htmlpreview.github.io/?https://github.com/llmlks/Tsoha-Bootstrap/blob/master/app/views/suunnitelmat/band_edit.html)
+  * [bandmember_add.html](https://htmlpreview.github.io/?https://github.com/llmlks/Tsoha-Bootstrap/blob/master/app/views/suunnitelmat/bandmember_add.html)
+  * [bandmember_edit.html](https://htmlpreview.github.io/?https://github.com/llmlks/Tsoha-Bootstrap/blob/master/app/views/suunnitelmat/bandmember_edit.html)
+  * [band_show.html](https://htmlpreview.github.io/?https://github.com/llmlks/Tsoha-Bootstrap/blob/master/app/views/suunnitelmat/band_show.html)
+  * [concert_add.html](https://htmlpreview.github.io/?https://github.com/llmlks/Tsoha-Bootstrap/blob/master/app/views/suunnitelmat/concert_add.html)
+  * [concert_edit.html](https://htmlpreview.github.io/?https://github.com/llmlks/Tsoha-Bootstrap/blob/master/app/views/suunnitelmat/concert_edit.html)
+  * [favourite_list.html](https://htmlpreview.github.io/?https://github.com/llmlks/Tsoha-Bootstrap/blob/master/app/views/suunnitelmat/favourite_list.html)
+  * [home.html](https://htmlpreview.github.io/?https://github.com/llmlks/Tsoha-Bootstrap/blob/master/app/views/suunnitelmat/home.html)
+  * [login.html](https://htmlpreview.github.io/?https://github.com/llmlks/Tsoha-Bootstrap/blob/master/app/views/suunnitelmat/login.html)
+  * [search_list.html](https://htmlpreview.github.io/?https://github.com/llmlks/Tsoha-Bootstrap/blob/master/app/views/suunnitelmat/search_list.html)
+  * [signup.html](https://htmlpreview.github.io/?https://github.com/llmlks/Tsoha-Bootstrap/blob/master/app/views/suunnitelmat/signup.html)
 
 ## Työn aihe
 
