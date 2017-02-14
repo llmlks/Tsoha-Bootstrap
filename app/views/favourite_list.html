@@ -10,26 +10,32 @@
             <tr>
                 <th>Name</th>
                 <th>Next concert</th>
+                {% if user %}
                 <th></th>
+                {% endif %}
             </tr>
         </thead>
         
         <tbody>
-            {% for band in favourites %}
+            {% for favourite in favourites %}
             <tr>
-                <td><a href="{{base_path}}/band/{{band.id}}">{{band.bandname}}</a></td>
+                <td><a href="{{base_path}}/band/{{favourite.id}}">{{favourite.bandname}}</a></td>
                 <td>
-                    {% if band.nextgig %}
-                    {{band.nextgig.gigtime}}, {{band.nextgig.gigdate}}, {{band.nextgig.location}}
+                    {% if favourite.nextgig %}
+                    {{favourite.nextgig.time}}, {{favourite.nextgig.date}}, {{favourite.nextgig.location}}
                     {% endif %}
                 </td>
-                <th><a class="btn btn-danger" href="{{base_path}}/favourite/{{band.id}}/delete">Delete</a></th>
+                {% if user %}
+                <th><a class="btn btn-danger" href="{{base_path}}/favourite/{{favourite.id}}/delete">Delete</a></th>
+                {% endif %}
             </tr>
             {% endfor %}
         </tbody>
     </table>
 </div>
-{% else %}
+{% elseif user %}
 <p>You have not added any bands to your favourites. You can do so by searching bands you like by name or by genre and then clicking "Add to favourites" on their profile.</p>
+{% else %}
+<p>{{band.bandname}} hasn't added any bands to their favourites list.</p>
 {% endif %}
 {% endblock %}

@@ -33,7 +33,11 @@
             {% for link in links %}
             <tr>
                 <td><a href="{{link.url}}">{{link.linkname}}</a></td>
-                <th><a class="btn btn-danger btn-sm" href="{{base_path}}/bandlink/{{link.id}}/delete">Remove</a></th>                
+                <td>
+                    <form method="get" class="destroy-form" action="{{base_path}}/bandlink/{{link.id}}/delete" data-confirm="Are you sure you want to delete this link?">
+                        <button type="submit" class="btn btn-sm btn-danger">Remove</button>
+                    </form>
+                </td>
             </tr>
             {% endfor %}
         </tbody>
@@ -90,7 +94,11 @@
                 <td>{{member.joined}}</td>
                 <td>{{member.resigned}}</td>
                 <td><a class="btn btn-primary btn-sm" href="{{base_path}}/member/{{member.id}}/edit">Edit</a></td>
-                <td><a class="btn btn-danger btn-sm" href="{{base_path}}/member/{{member.id}}/delete">Remove</a></td>
+                <td>
+                    <form method="get" class="destroy-form" action="{{base_path}}/member/{{member.id}}/delete" data-confirm="Are you sure you want to delete this member?">
+                        <button type="submit" class="btn btn-sm btn-danger">Remove</button>
+                    </form>
+                </td>
             </tr>
             {% endfor %}
         </tbody>
@@ -120,8 +128,12 @@
                 <td>{{gig.location}}</td>
                 <td>{{gig.date}}</td>
                 <td>{{gig.time}}</td>
-                <th><a class="btn btn-primary btn-sm" href="{{base_path}}/gig/{{gig.id}}/edit">Edit</a></th>
-                <th><a class="btn btn-danger btn-sm" href="{{base_path}}/gig/{{gig.id}}/delete">Remove</a></th>
+                <td><a class="btn btn-primary btn-sm" href="{{base_path}}/gig/{{gig.id}}/edit">Edit</a></td>
+                <td>
+                    <form method="get" class="destroy-form" action="{{base_path}}/gig/{{gig.id}}/delete" data-confirm="Are you sure you want to delete this concert?">
+                        <button type="submit" class="btn btn-sm btn-danger">Remove</button>
+                    </form>
+                </td>
             </tr>
             {% endfor %}
         </tbody>
@@ -133,7 +145,7 @@
     <a class="btn btn-success" href="{{base_path}}/band/{{band.id}}/newgig">Add new concert</a>
 </div>
 
-<div class="form-group">
-    <a class="btn btn-danger btn-lg" style="float: right" href="{{base_path}}/band/{{band.id}}/delete">Delete your account</a>
-</div>
+<form method='get' action="{{base_path}}/band/{{band.id}}/delete" class="destroy-form" data-confirm="Are you sure you want to delete your account?">
+    <button type="submit" class="btn btn-danger">Delete your account</button>
+</form>
 {% endblock %}

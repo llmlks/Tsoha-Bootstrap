@@ -1,7 +1,10 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h2>{{band.bandname}}</h2>
+<h2>
+    {{band.bandname}}
+    <a class="btn btn-success" style="float: right" href="{{base_path}}/favourites/{{band.id}}">Favourites</a>
+</h2>
 
 <p>{{message}}</p>
 
@@ -14,7 +17,7 @@
     <table>
         <thead>
             <tr>
-                <th>Links</th>
+                <th>Links:</th>
             </tr>
         </thead>
 
@@ -30,17 +33,15 @@
 {% endif %}
 
 <div>
-    <ul style="list-style-type: none">
-        <li><strong>Origin:</strong> {{band.origin}}</li>
-    </ul>
-
+    <p style="margin-top: 10px"><strong>Origin:</strong> {{band.origin}}</p>
 
     <p>{{band.description}}</p>
 </div>
 
 {% if in_favourites %}
 This band is added to your favourites!
-{% elseif user%}
+{% elseif user == band.id %}
+{% elseif user %}
 <form method="post" action="{{base_path}}/band/{{band.id}}/to_favourites">
     <button class="btn btn-success">Add to favourites</button>
 </form>
