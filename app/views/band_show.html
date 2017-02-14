@@ -1,6 +1,14 @@
 {% extends "base.html" %}
 
 {% block content %}
+
+{% if user == band.id %}
+{% elseif voted == false %}
+<a class="btn-success btn" href="{{base_path}}/band/{{band.id}}/upvote">Upvote</a>
+{% else %}
+<a class="btn-danger btn" href="{{base_path}}/band/{{band.id}}/downvote">Cancel upvote</a>
+{% endif %}
+
 <h2>
     {{band.bandname}}
     <a class="btn btn-success" style="float: right" href="{{base_path}}/favourites/{{band.id}}">Favourites</a>

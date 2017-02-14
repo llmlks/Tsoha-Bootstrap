@@ -100,6 +100,14 @@ $routes->get('/logout', 'check_logged_in', function() {
     BandController::logout();
 });
 
+$routes->get('/band/:id/upvote', function($id) {
+    BandController::upvote($id);
+});
+
+$routes->get('/band/:id/downvote', function($id) {
+    BandController::downvote($id);
+});
+
 $routes->post('/band/:id/to_favourites', 'check_logged_in', function($id) {
     FavouriteController::newfavourite($id);
 });
@@ -136,7 +144,7 @@ $routes->get('/gig/:id/edit', 'check_logged_in', function($id) {
     GigController::edit($id);
 });
 
-$routes->post('/gig/:id/edit', 'check_logged_in', function($id){
+$routes->post('/gig/:id/edit', 'check_logged_in', function($id) {
     GigController::update($id);
 });
 

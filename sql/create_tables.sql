@@ -3,6 +3,7 @@ CREATE TABLE Band (
     bandname varchar(50) NOT NUll,
     description varchar(1000),
     origin varchar(100),
+    likes integer DEFAULT 0,
     username varchar(50) UNIQUE NOT NULL,
     password varchar(20) NOT NULL
 );

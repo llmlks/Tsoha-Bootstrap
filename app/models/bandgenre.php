@@ -28,7 +28,7 @@ class BandGenre extends BaseModel {
 
     public static function findbandsbygenre($id) {
 
-        $query = DB::connection()->prepare('SELECT * FROM Band WHERE id IN (SELECT band_id FROM BandGenre WHERE genre_id = :genre)');
+        $query = DB::connection()->prepare('SELECT * FROM Band WHERE id IN (SELECT band_id FROM BandGenre WHERE genre_id = :genre) ORDER BY likes');
         $query->execute(array('genre' => $id));
 
         $rows = $query->fetchAll();
@@ -43,6 +43,7 @@ class BandGenre extends BaseModel {
                 'bandname' => $row['bandname'],
                 'description' => $row['description'],
                 'origin' => $row['origin'],
+                'likes' => $row['likes'],
                 'id' => $row['id'],
                 'username' => $row['username'],
                 'password' => $row['password']

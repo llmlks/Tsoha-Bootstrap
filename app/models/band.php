@@ -2,7 +2,7 @@
 
 class Band extends BaseModel {
 
-    public $bandname, $description, $origin, $id, $username, $password, $genres,
+    public $bandname, $description, $origin, $likes, $id, $username, $password, $genres,
             $nextgig, $members;
 
     public function __construct($attributes) {
@@ -10,10 +10,13 @@ class Band extends BaseModel {
         $this->validators = array('validate_name', 'validate_username', 'validate_password');
     }
 
-    public static function findall() {
+    public static function findall($page) {
 
-        $query = DB::connection()->prepare('SELECT * FROM Band');
-        $query->execute();
+        $page_size = 10;
+        $offset = $page_size * ($page - 1);
+        
+        $query = DB::connection()->prepare('SELECT * FROM Band ORDER BY likes DESC LIMIT :limit OFFSET :offset');
+        $query->execute(array('limit' => $page_size, 'offset' => $offset));
 
         $rows = $query->fetchAll();
         $bands = array();
@@ -23,6 +26,7 @@ class Band extends BaseModel {
                 'bandname' => $row['bandname'],
                 'description' => $row['description'],
                 'origin' => $row['origin'],
+                'likes' => $row['likes'],
                 'id' => $row['id'],
                 'username' => $row['username'],
                 'password' => $row['password']
@@ -45,6 +49,7 @@ class Band extends BaseModel {
                 'bandname' => $row['bandname'],
                 'description' => $row['description'],
                 'origin' => $row['origin'],
+                'likes' => $row['likes'],
                 'id' => $row['id'],
                 'username' => $row['username'],
                 'password' => $row['password']
@@ -59,7 +64,7 @@ class Band extends BaseModel {
 
         $bandname = '%' . strtolower($bandname) . '%';
 
-        $query = DB::connection()->prepare('SELECT * FROM Band WHERE LOWER(bandname) LIKE :bandname');
+        $query = DB::connection()->prepare('SELECT * FROM Band WHERE LOWER(bandname) LIKE :bandname ORDER BY likes');
         $query->execute(array('bandname' => $bandname));
 
         $rows = $query->fetchAll();
@@ -75,6 +80,7 @@ class Band extends BaseModel {
                 'bandname' => $row['bandname'],
                 'description' => $row['description'],
                 'origin' => $row['origin'],
+                'likes' => $row['likes'],
                 'id' => $row['id'],
                 'username' => $row['username'],
                 'password' => $row['password']
@@ -142,7 +148,27 @@ class Band extends BaseModel {
 
         $query->execute($updates);
     }
- 
+
+    public static function upvote($id) {
+        $query = DB::connection()->prepare('UPDATE Band SET likes = (likes + 1) WHERE id = :id');
+
+        $query->execute(array('id' => $id));
+    }
+    
+    public static function downvote($id) {
+        $query = DB::connection()->prepare('UPDATE Band SET likes = (likes - 1) WHERE id = :id');
+
+        $query->execute(array('id' => $id));
+    }
+    
+    public static function count() {
+        $query = DB::connection()->prepare('SELECT COUNT(*) FROM Band');
+        $query->execute();
+        
+        $row = $query->fetch();
+        return $row['count'];
+    }
+    
     public static function authenticate($username, $password) {
         
         $query = DB::connection()->prepare('SELECT * FROM Band WHERE username = :username AND password = :password');

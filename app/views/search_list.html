@@ -28,6 +28,7 @@
                 <th>Next concert</th>
                 <th>Band members</th>
                 <th>Genres</th>
+                <th>Votes</th>
             </tr>
         </thead>
 
@@ -37,7 +38,7 @@
                 <td><a href="{{base_path}}/band/{{band.id}}">{{band.bandname}}</a></td>
                 <td>                    
                     {% if band.nextgig %}
-                    {{band.nextgig.time}}, {{band.nextgig.date}} {{band.nextgig.location}}
+                    {{band.nextgig.date}}, {{band.nextgig.time}}: {{band.nextgig.location}}
                     {% endif %}
                 </td>
                 <td>
@@ -50,6 +51,7 @@
                     <a class="btn btn-success btn-xs" href="{{base_path}}/genre_search/{{genre.id}}">{{genre.genrename}}</a>
                     {% endfor %}
                 </td>
+                <td>{{band.likes}}</td>
             </tr>
             {% endfor %}
         </tbody>

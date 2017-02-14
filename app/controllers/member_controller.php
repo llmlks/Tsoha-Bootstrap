@@ -5,7 +5,7 @@ class MemberController extends BaseController {
     public static function add() {
 
         $user = null;
-        if ($_SESSION) {
+        if (isset($_SESSION['user'])) {
             $user = $_SESSION['user'];
         }
 
@@ -16,7 +16,7 @@ class MemberController extends BaseController {
 
         $params = $_POST;
         $user = null;
-        if ($_SESSION) {
+        if (isset($_SESSION['user'])) {
             $user = $_SESSION['user'];
         }
 
@@ -49,7 +49,7 @@ class MemberController extends BaseController {
 
         $params = $_POST;
         $user = null;
-        if ($_SESSION) {
+        if (isset($_SESSION['user'])) {
             $user = $_SESSION['user'];
         }
         

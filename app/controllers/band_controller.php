@@ -11,9 +11,14 @@ class BandController extends BaseController {
         $links = BandLink::findAllByBand($id);
         $in_favourites = false;
         $user = false;
-        if ($_SESSION) {
+        if (isset($_SESSION['user'])) {
             $in_favourites = Favourite::isInFavourites($id);
             $user = $_SESSION['user'];
+        }
+
+        $voted = false;
+        if (isset($_SESSION[$band->bandname])) {
+            $voted = $_SESSION[$band->bandname];
         }
 
         View::make('band_show.html', array(
@@ -23,16 +28,18 @@ class BandController extends BaseController {
             'gigs' => $gigs,
             'links' => $links,
             'in_favourites' => $in_favourites,
-            'user' => $user
+            'user' => $user,
+            'voted' => $voted
         ));
     }
 
     public static function searchWithName() {
-
-        $bands = Band::findwithname($_POST["search"]);
+        
+        $search = $_POST["search"];
+        $bands = Band::findwithname($search);
         $genres = Genre::findall();
         $user = null;
-        if ($_SESSION) {
+        if (isset($_SESSION['user'])) {
             $user = $_SESSION['user'];
         }
 
@@ -79,10 +86,18 @@ class BandController extends BaseController {
 
     public static function home() {
 
-        $bands = Band::findall();
+        $page = 1;
+        if (isset($_GET['page'])) {
+            $page = $_GET['page'];
+        }
+        $band_count = Band::count();
+        $pages = ceil($band_count / 10);        
+        
+        $bands = Band::findall($page);
         $genres = Genre::findall();
+        
         $user = null;
-        if ($_SESSION) {
+        if (isset($_SESSION['user'])) {
             $user = $_SESSION['user'];
         }
 
@@ -90,7 +105,7 @@ class BandController extends BaseController {
             $band->genres = BandGenre::findgenresforband($band->id);
         }
 
-        View::make('home.html', array('bands' => $bands, 'user' => $user, 'genres' => $genres));
+        View::make('home.html', array('pages' => $pages, 'bands' => $bands, 'user' => $user, 'genres' => $genres));
     }
 
     public static function edit() {
@@ -133,6 +148,22 @@ class BandController extends BaseController {
 
             Redirect::to('/band/' . $id, array('message' => 'Your band\'s information has been updated', 'user' => $id));
         }
+    }
+
+    public static function upvote($id) {
+
+        $band = Band::findwithid($id);
+        Band::upvote($id);
+        $_SESSION[$band->bandname] = true;
+        Redirect::to('/band/' . $id);
+    }
+
+    public static function downvote($id) {
+
+        $band = Band::findwithid($id);
+        Band::downvote($id);
+        $_SESSION[$band->bandname] = false;
+        Redirect::to('/band/' . $id);
     }
 
     public static function delete() {
