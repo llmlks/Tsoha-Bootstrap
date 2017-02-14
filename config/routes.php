@@ -1,5 +1,9 @@
 <?php
 
+function check_logged_in() {
+    BaseController::check_logged_in();
+}
+
 $routes->get('/hiekkalaatikko', function() {
     HelloWorldController::sandbox();
 });
@@ -80,23 +84,23 @@ $routes->post('/search', function() {
     BandController::searchWithName();
 });
 
-$routes->get('/band/:id/edit', function() {
+$routes->get('/band/:id/edit', 'check_logged_in', function() {
     BandController::edit();
 });
 
-$routes->post('/band/:id/edit', function() {
+$routes->post('/band/:id/edit', 'check_logged_in', function() {
     BandController::update();
 });
 
-$routes->get('/band/:id/delete', function() {
+$routes->get('/band/:id/delete', 'check_logged_in', function() {
     BandController::delete();
 });
 
-$routes->get('/logout', function() {
+$routes->get('/logout', 'check_logged_in', function() {
     BandController::logout();
 });
 
-$routes->post('/band/:id/to_favourites', function($id) {
+$routes->post('/band/:id/to_favourites', 'check_logged_in', function($id) {
     FavouriteController::newfavourite($id);
 });
 
@@ -104,48 +108,64 @@ $routes->get('/favourites/:id', function($id) {
     FavouriteController::favourites($id);
 });
 
-$routes->get('/favourite/:id/delete', function($id) {
+$routes->get('/favourite/:id/delete', 'check_logged_in', function($id) {
     FavouriteController::delete($id);
 });
 
-$routes->get('/member/:id/edit', function($id) {
+$routes->get('/member/:id/edit', 'check_logged_in', function($id) {
     MemberController::edit($id);
 });
 
-$routes->post('/member/:id/edit', function($id) {
+$routes->post('/member/:id/edit', 'check_logged_in', function($id) {
     MemberController::update($id);
 });
 
-$routes->get('/member/:id/delete', function($id) {
+$routes->get('/member/:id/delete', 'check_logged_in', function($id) {
     MemberController::delete($id);
 });
 
-$routes->get('/band/:id/newmember', function() {
+$routes->get('/band/:id/newmember', 'check_logged_in', function() {
     MemberController::add();
 });
 
-$routes->post('/band/:id/newmember', function($id) {
+$routes->post('/band/:id/newmember', 'check_logged_in', function($id) {
     MemberController::newMember($id);
 });
 
-$routes->get('/gig/:id/edit', function($id) {
+$routes->get('/gig/:id/edit', 'check_logged_in', function($id) {
     GigController::edit($id);
 });
 
-$routes->post('/gig/:id/edit', function($id){
+$routes->post('/gig/:id/edit', 'check_logged_in', function($id){
     GigController::update($id);
 });
 
-$routes->get('/gig/:id/delete', function($id) {
+$routes->get('/gig/:id/delete', 'check_logged_in', function($id) {
     GigController::delete($id);
 });
 
-$routes->get('/band/:id/newgig', function() {
+$routes->get('/band/:id/newgig', 'check_logged_in', function() {
     GigController::add();
 });
 
-$routes->post('/band/:id/newgig', function($id) {
+$routes->post('/band/:id/newgig', 'check_logged_in', function($id) {
     GigController::newGig($id);
+});
+
+$routes->get('/band/:id/newlink', 'check_logged_in', function() {
+    LinkController::add();
+});
+
+$routes->post('/band/:id/newlink', 'check_logged_in', function($id) {
+    LinkController::newLink($id);
+});
+
+$routes->get('/bandlink/:id/delete', 'check_logged_in', function($id) {
+    LinkController::delete($id);
+});
+
+$routes->get('/genre_search/:id', function($id) {
+    GenreController::find($id);
 });
 
 $routes->get('/band/:id', function($id) {

@@ -61,7 +61,7 @@ class BandController extends BaseController {
             'description' => $params['description'],
             'origin' => $params['origin'],
             'username' => $params['username'],
-            'password' => $params['password']
+            'pas;sword' => $params['password']
         );
 
         $band = new Band($attributes);
@@ -79,6 +79,7 @@ class BandController extends BaseController {
     public static function home() {
 
         $bands = Band::findall();
+        $genres = Genre::findall();
         $user = null;
         if ($_SESSION) {
             $user = $_SESSION['user'];
@@ -88,7 +89,7 @@ class BandController extends BaseController {
             $band->genres = BandGenre::findgenresforband($band->id);
         }
 
-        View::make('home.html', array('bands' => $bands, 'user' => $user));
+        View::make('home.html', array('bands' => $bands, 'user' => $user, 'genres' => $genres));
     }
 
     public static function edit() {
@@ -97,8 +98,10 @@ class BandController extends BaseController {
         $id = $band->id;
         $members = Member::findallbyband($id);
         $gigs = Gig::findAllByBand($id);
+        $links = BandLink::findAllByBand($id);
+        $genres = Genre::findall();
 
-        View::make('band_edit.html', array('band' => $band, 'members' => $members, 'gigs' => $gigs, 'user' => $id));
+        View::make('band_edit.html', array('links' => $links, 'band' => $band, 'members' => $members, 'gigs' => $gigs, 'user' => $id, 'genres' => $genres));
     }
 
     public static function update() {
@@ -112,10 +115,14 @@ class BandController extends BaseController {
             'origin' => $params['origin']
         );
         $band = new Band($attributes);
+        $members = Member::findallbyband($id);
+        $gigs = Gig::findAllByBand($id);
+        $links = BandLink::findAllByBand($id);
+        $genres = Genre::findall();
         $errors = $band->errors();
 
         if (count($errors) > 0) {
-            View::make('band_edit.html', array('errors' => $errors, 'attributes' => $attributes, 'user' => $id));
+            View::make('band_edit.html', array('errors' => $errors, 'links' => $links, 'band' => $band, 'members' => $members, 'gigs' => $gigs, 'user' => $id, 'genres' => $genres));
         } else {
             $band->update($attributes);
 
@@ -136,11 +143,8 @@ class BandController extends BaseController {
     }
     
     public static function logout() {
-        session_unset();
-
-        session_destroy();
-
-        Redirect::to('/');        
+        $_SESSION['user'] = null;
+        Redirect::to('/', array('message' => 'You have logged out'));        
     }
 
     public static function login() {

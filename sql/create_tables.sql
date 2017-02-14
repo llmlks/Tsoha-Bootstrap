@@ -33,10 +33,10 @@ CREATE TABLE BandFavourite (
 );
 
 CREATE TABLE BandLink (
+    id SERIAL PRIMARY KEY,
     band_id INTEGER REFERENCES Band(id),
     linkname varchar(50) NOT NULL,
-    url varchar(70) NOT NULL,
-    PRIMARY KEY(band_id, url)
+    url varchar(70) NOT NULL
 );
 
 CREATE TABLE Member (

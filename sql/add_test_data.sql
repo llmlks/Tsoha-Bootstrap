@@ -8,8 +8,20 @@ INSERT INTO Band (bandname, username, password) VALUES ('Smaller Band', 'smallba
 
 INSERT INTO BandFavourite (band_id, favourite) VALUES (1, 2);
 
-INSERT INTO Genre (genrename) VALUES ('metal');
-INSERT INTO Genre (genrename) VALUES ('funk');
+INSERT INTO Genre (genrename) VALUES ('Metal');
+INSERT INTO Genre (genrename) VALUES ('Funk');
+INSERT INTO Genre (genrename) VALUES ('Pop');
+INSERT INTO Genre (genrename) VALUES ('Jazz');
+INSERT INTO Genre (genrename) VALUES ('Blues');
+INSERT INTO Genre (genrename) VALUES ('Soul');
+INSERT INTO Genre (genrename) VALUES ('Reggae');
+INSERT INTO Genre (genrename) VALUES ('Psychedelic');
+INSERT INTO Genre (genrename) VALUES ('Ambient');
+INSERT INTO Genre (genrename) VALUES ('Rap');
+INSERT INTO Genre (genrename) VALUES ('Classical');
+INSERT INTO Genre (genrename) VALUES ('Punk');
+INSERT INTO Genre (genrename) VALUES ('R&B');
+INSERT INTO Genre (genrename) VALUES ('Noise');
 
 INSERT INTO BandGenre (band_id, genre_id) VALUES (1, 2);
 INSERT INTO BandGenre (band_id, genre_id) VALUES (2, 2);

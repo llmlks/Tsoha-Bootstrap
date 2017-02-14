@@ -34,15 +34,21 @@ class BaseModel {
         if (strlen($string) < $min || strlen($string) > $max) {
             return false;
         }
-        
+
         return true;
     }
-    
+
     public function validate_time($time) {
-        
+        if (preg_match("/(2[0-3]|[01][0-9]):([0-5][0-9])/", $time) == false) {
+            return 'Please enter a valid time in HH:MM format';
+        }
     }
-    
+
     public function validate_date($date) {
-        
+        $d = DateTime::createFromFormat('Y-m-d', $date);
+        if (($d && $d->format('Y-m-d') === $date) == false) {
+            return 'Please enter a valid date in YYYY-MM-DD format';
+        }
     }
+
 }

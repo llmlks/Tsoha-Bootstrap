@@ -4,10 +4,10 @@
 <h2>{{band.bandname}}</h2>
 
 {% for genre in genres %}
-<button class="btn btn-primary btn-sm">{{genre.genrename}}</button>
+<a class="btn btn-primary btn-sm" href="{{base_path}}/genre_search/{{genre.id}}">{{genre.genrename}}</a>
 {% endfor %}
 
-{% if links %}
+{% if links > 0 %}
 <div>
     <table>
         <thead>

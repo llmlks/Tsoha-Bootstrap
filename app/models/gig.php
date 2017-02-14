@@ -6,6 +6,7 @@ class Gig extends BaseModel {
 
     public function __construct($attributes) {
         parent::__construct($attributes);
+        $this->validators = array('validate_time', 'validate_date', 'validate_location');
     }
 
     public static function findwithid($id) {
@@ -101,5 +102,19 @@ class Gig extends BaseModel {
         $query = DB::connection()->prepare('DELETE FROM Concert WHERE id = :id');
 
         $query->execute(array('id' => $id));
+    }
+    
+    public function validate_location() {
+        if (parent::validate_string_length($this->location, 2, 100) == false) {
+            return 'Please enter a valid location (2-100 characters)';
+        }
+    }
+    
+    public function validate_time() {
+        return parent::validate_time($this->time);
+    }
+    
+    public function validate_date() {
+        return parent::validate_date($this->date);
     }
 }

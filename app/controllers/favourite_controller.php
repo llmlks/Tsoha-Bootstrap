@@ -5,12 +5,16 @@ class FavouriteController extends BaseController {
     public static function favourites($id) {
 
         $favourites = Favourite::findAll($id);
-
+        $user = null;
+        if ($_SESSION) {
+            $user = $_SESSION['user'];
+        }
+        
         foreach ($favourites as $band) {
             $band->nextgig = Gig::findBandsNextGig($id);
         }
 
-        View::make('favourite_list.html', array('favourites' => $favourites));
+        View::make('favourite_list.html', array('favourites' => $favourites, 'user' => $user));
     }
 
     public static function newfavourite($id) {

@@ -8,15 +8,24 @@
     }
 
     public static function sandbox(){
-        $band = Band::findwithid(1);
-        $bands = Band::findall();
-        $genre = Genre::findwithid(1);
-        $genres = Genre::findall();
+
+        $band = new Band(array(
+            'bandname' => 'b',
+            'description' => '',
+            'origin' => '',
+            'username' => '',
+            'pas;sword' => '1'
+        ));
         
-        Kint::dump($band);
-        Kint::dump($bands);
-        Kint::dump($genre);
-        Kint::dump($genres);
+        $gig = new Gig(array(            
+            'band_id' => 1,
+            'time' => '8.00',
+            'date' => '23.03.2016',
+            'location' => ''
+        ));
+        Kint::dump($band->errors());
+        Kint::dump($gig->errors());
+
     }
     
     public static function home(){

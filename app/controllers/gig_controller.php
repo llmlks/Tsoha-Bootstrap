@@ -3,35 +3,59 @@
 class GigController extends BaseController {
     
     public static function add() {
-
-        View::make('concert_add.html', array('user' => $_SESSION['user']));
+        $user = null;
+        if ($_SESSION) {
+            $user = $_SESSION['user'];
+        }
+        
+        View::make('concert_add.html', array('user' => $user));
     }    
     
     public static function newGig($id) {
         
         $params = $_POST;
+        $user = null;
+        if ($_SESSION) {
+            $user = $_SESSION['user'];
+        }        
         
-        $gig = new Gig(array(
+        $attributes = array(
             'band_id' => $id,
             'time' => $params['time'],
             'date' => $params['date'],
             'location' => $params['location']
-        ));
+        );
+        
+        $gig = new Gig($attributes);
+        $errors = $gig->errors();
+        
+        if (count($errors) > 0) {
+            View::make('concert_add.html', array('errors' => $errors, 'attributes' => $attributes, 'user' => $user));
+        }
         
         $gig->save();
         Redirect::to('/band/' . $id . '/edit');
     }
     
     public static function edit($id) {
-        
+
+        $user = null;
+        if ($_SESSION) {
+            $user = $_SESSION['user'];
+        }        
         $gig = Gig::findwithid($id);
         
-        View::make('concert_edit.html', array('gig' => $gig));
+        View::make('concert_edit.html', array('gig' => $gig, 'user' => $user));
     }
     
     public static function update($id) {
 
         $params = $_POST;
+        
+        $user = null;
+        if ($_SESSION) {
+            $user = $_SESSION['user'];
+        }        
         $attributes = array(
             'id' => $id,
             'band_id' => $_SESSION['user'],
@@ -40,10 +64,10 @@ class GigController extends BaseController {
             'location' => $params['location'],
         );
         $gig = new Gig($attributes);
-        $errors = array();
+        $errors = $gig->errors();
 
         if (count($errors) > 0) {
-            View::make('band_edit.html', array('errors' => $errors, 'attributes' => $attributes));
+            View::make('band_edit.html', array('errors' => $errors, 'attributes' => $attributes, 'user' => $user));
         } else {
             $gig->update($attributes);
 

@@ -3,21 +3,25 @@
 {% block content %}
 <h2>Add new concert</h2>
 
+{% for error in errors %}
+<p>{{error}}</p>
+{% endfor %}
+
 <form method="post" action="{{base_path}}/band/{{user}}/newgig">
     
     <div class="form-group">
-        <label>Location</label>
-        <textarea class="form-control" name="location"></textarea>
+        <label>* Location</label>
+        <input class="form-control" name="location" value="{{attributes.location}}">
     </div>
 
     <div class="form-group">
-        <label>Date</label>
-        <textarea class="form-control" name="date"></textarea>
+        <label>* Date (yyyy-mm-dd)</label>
+        <input class="form-control" name="date" value="{{attributes.date}}">
     </div>
 
     <div class="form-group">
-        <label>Time</label>
-        <textarea class="form-control" name="time"></textarea>
+        <label>* Time (hh:mm, 24 hour clock)</label>
+        <input class="form-control" name="time" value="{{attributes.time}}">
     </div>
 
     <div>

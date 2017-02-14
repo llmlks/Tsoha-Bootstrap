@@ -9,6 +9,12 @@
     {% endif %}
 </div>
 
+<ul>
+    {% for genre in genres %}
+    <li><a href="{{base_path}}/genre_search/{{genre.id}}">{{genre.name}}</a></li>
+    {% endfor %}
+</ul>
+
 <form method="post" action="{{base_path}}/search">
     <div class="form-group">
         <input name="search" class="form-control" placeholder="Search bands by name" type="text">

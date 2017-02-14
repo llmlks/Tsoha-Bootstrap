@@ -3,28 +3,34 @@
 {% block content %}
 <h2>Add new band member</h2>
 
-<div class="form-group">
-    <label>Name</label>
-    <textarea class="form-control"></textarea>
-</div>
+{% for error in errors %}
+<p>{{error}}</p>
+{% endfor %}
 
-<div class="form-group">
-    <label>Instruments</label>
-    <textarea class="form-control"></textarea>
-</div>
+<form method="post" action="{{base_path}}/band/{{user}}/newmember">
+    <div class="form-group">
+        <label>* Name</label>
+        <input class="form-control" name="name" value="{{attributes.membername}}">
+    </div>
 
-<div class="form-group">
-    <label>Member from</label>
-    <textarea class="form-control"></textarea>
-</div>
+    <div class="form-group">
+        <label>* Instruments</label>
+        <input class="form-control" name="instruments" value="{{attributes.instruments}}">
+    </div>
 
-<div class="form-group"> 
-    <label>Member until</label>
-    <textarea class="form-control"></textarea>
-</div> 
+    <div class="form-group">
+        <label>* Member from (yyyy-mm-dd)</label>
+        <input class="form-control" name="joined" value="{{attributes.joined}}">
+    </div>
 
-<p>
-    <button type="submit" class="btn btn-success">Add band member</button>
-</p>
+    <div class="form-group"> 
+        <label>Member until (yyyy-mm-dd)</label>
+        <input class="form-control" name="resigned" value="{{attributes.resigned}}">
+    </div> 
+
+    <p>
+        <button type="submit" class="btn btn-success">Add band member</button>
+    </p>
+</form>
 
 {% endblock %}
