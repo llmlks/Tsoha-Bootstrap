@@ -6,7 +6,7 @@ class FavouriteController extends BaseController {
 
         $favourites = Favourite::findAll($id);
         $user = null;
-        if ($_SESSION) {
+        if (isset($_SESSION['user'])) {
             $user = $_SESSION['user'];
         }
         
@@ -20,7 +20,7 @@ class FavouriteController extends BaseController {
 
     public static function newfavourite($id) {
 
-        if ($_SESSION) {
+        if (isset($_SESSION['user'])) {
 
             $favourite = new Favourite(array(
                 'favourite' => $id,
@@ -34,7 +34,7 @@ class FavouriteController extends BaseController {
 
     public static function delete($id) {
 
-        if ($_SESSION) {
+        if (isset($_SESSION['user'])) {
             $favourite = new Favourite(array(
                 'favourite' => $id,
                 'band_id' => $_SESSION['user']

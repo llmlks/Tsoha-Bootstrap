@@ -7,7 +7,7 @@ class GenreController extends BaseController {
         $bands = BandGenre::findbandsbygenre($id);
         $genres = Genre::findall();
         $user = null;
-        if ($_SESSION) {
+        if (isset($_SESSION['user'])) {
             $user = $_SESSION['user'];
         }
 

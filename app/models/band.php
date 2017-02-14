@@ -198,6 +198,15 @@ class Band extends BaseModel {
     }
     
     public function validate_username() {
+        
+        $query = DB::connection()->prepare('SELECT * FROM Band WHERE username = :username');
+        $query->execute(array('username' => $this->username));
+        $row = $query->fetch();
+        
+        if ($row) {
+            return 'The username has already been taken. Please try another one';
+        }
+        
         if (parent::validate_string_length($this->username, 2, 20) == false) {
             return 'Please insert a valid username (4-20 characters)';
         }        

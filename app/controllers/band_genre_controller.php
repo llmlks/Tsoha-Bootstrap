@@ -4,7 +4,7 @@ class BandGenreController extends BaseController {
 
     public static function delete($id) {
 
-        if ($_SESSION) {
+        if (isset($_SESSION['user'])) {
             $bandgenre = new BandGenre(array(
                 'genre_id' => $id,
                 'band_id' => $_SESSION['user']
@@ -19,7 +19,7 @@ class BandGenreController extends BaseController {
 
     public static function add($id) {
         
-        if ($_SESSION) {
+        if (isset($_SESSION['user'])) {
             $bandgenre = new BandGenre(array(
                 'genre_id' => $id,
                 'band_id' => $_SESSION['user']

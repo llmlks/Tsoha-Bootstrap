@@ -4,7 +4,7 @@ class GigController extends BaseController {
     
     public static function add() {
         $user = null;
-        if ($_SESSION) {
+        if (isset($_SESSION['user'])) {
             $user = $_SESSION['user'];
         }
         
@@ -15,7 +15,7 @@ class GigController extends BaseController {
         
         $params = $_POST;
         $user = null;
-        if ($_SESSION) {
+        if (isset($_SESSION['user'])) {
             $user = $_SESSION['user'];
         }        
         
@@ -40,7 +40,7 @@ class GigController extends BaseController {
     public static function edit($id) {
 
         $user = null;
-        if ($_SESSION) {
+        if (isset($_SESSION['user'])) {
             $user = $_SESSION['user'];
         }        
         $gig = Gig::findwithid($id);
@@ -53,7 +53,7 @@ class GigController extends BaseController {
         $params = $_POST;
         
         $user = null;
-        if ($_SESSION) {
+        if (isset($_SESSION['user'])) {
             $user = $_SESSION['user'];
         }        
         $attributes = array(
