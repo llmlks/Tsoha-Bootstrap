@@ -5,7 +5,7 @@ function check_logged_in() {
 }
 
 $routes->get('/hiekkalaatikko', function() {
-    HelloWorldController::sandbox();
+    BandController::sandbox();
 });
 
 $routes->get('/', function() {

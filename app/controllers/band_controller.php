@@ -2,6 +2,29 @@
 
 class BandController extends BaseController {
 
+    public static function sandbox() {
+
+        $band = new Band(array(
+            'bandname' => 'Punk4life',
+            'description' => 'Bringing joy to the world',
+            'origin' => 'Brisbane, Australia',
+            'username' => 'punk',
+            'password' => 'fourlife'
+        ));
+
+        $gig = new Gig(array(
+            'band_id' => 1,
+            'time' => '8.00',
+            'date' => '23.03.2016',
+            'location' => ''
+        ));
+
+        $bands = BandGenre::findbandsbygenre(1);
+        Kint::dump($band->errors());
+        Kint::dump($gig->errors());
+        Kint::dump($bands);
+    }
+
     public static function band_show($id) {
 
         $band = Band::findwithid($id);
@@ -34,7 +57,7 @@ class BandController extends BaseController {
     }
 
     public static function searchWithName() {
-        
+
         $search = $_POST["search"];
         $bands = Band::findwithname($search);
         $genres = Genre::findall();
@@ -91,11 +114,11 @@ class BandController extends BaseController {
             $page = $_GET['page'];
         }
         $band_count = Band::count();
-        $pages = ceil($band_count / 10);        
-        
+        $pages = ceil($band_count / 10);
+
         $bands = Band::findall($page);
         $genres = Genre::findall();
-        
+
         $user = null;
         if (isset($_SESSION['user'])) {
             $user = $_SESSION['user'];
