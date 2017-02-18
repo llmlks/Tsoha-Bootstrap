@@ -8,6 +8,50 @@ $routes->get('/hiekkalaatikko', function() {
     BandController::sandbox();
 });
 
+$routes->get('suunnitelmat/bedit', function() {
+    BandController::band_edit();
+});
+
+$routes->get('suunnitelmat/bshow', function() {
+    BandController::sband_show();
+});
+
+$routes->get('suunnitelmat/bmadd', function() {
+    BandController::bandmember_add();
+});
+
+$routes->get('suunnitelmat/bmedit', function() {
+    BandController::bandmember_edit();
+});
+
+$routes->get('suunnitelmat/cadd', function() {
+    BandController::concert_add();
+});
+
+$routes->get('suunnitelmat/cedit', function() {
+    BandController::concert_edit();
+});
+
+$routes->get('suunnitelmat/flist', function() {
+    BandController::favourite();
+});
+
+$routes->get('suunnitelmat/home', function() {
+    BandController::shome();
+});
+
+$routes->get('suunnitelmat/login', function() {
+    BandController::slogin();
+});
+
+$routes->get('suunnitelmat/search', function() {
+    BandController::search();
+});
+
+$routes->get('suunnitelmat/signup', function() {
+    BandController::ssignup();    
+});
+
 $routes->get('/', function() {
     BandController::home();
 });

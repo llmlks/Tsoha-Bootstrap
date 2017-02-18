@@ -224,4 +224,59 @@ class BandController extends BaseController {
         }
     }
 
+    public static function band_edit() {
+
+        View::make('suunnitelmat/band_edit.html');
+    }
+
+    public static function sband_show() {
+
+        View::make('suunnitelmat/band_show.html');
+    }
+
+    public static function bandmember_add() {
+
+        View::make('suunnitelmat/bandmember_add.html');
+    }
+
+    public static function bandmember_edit() {
+
+        View::make('suunnitelmat/bandmember_edit.html');
+    }
+
+    public static function concert_add() {
+
+        View::make('suunnitelmat/concert_add.html');
+    }
+
+    public static function concert_edit() {
+
+        View::make('suunnitelmat/concert_edit.html');
+    }
+
+    public static function favourite() {
+
+        View::make('suunnitelmat/favourite_list.html');
+    }
+
+    public static function shome() {
+
+        View::make('suunnitelmat/home.html');
+    }
+
+    public static function slogin() {
+
+        View::make('suunnitelmat/login.html');
+    }
+
+    public static function search() {
+
+        View::make('suunnitelmat/search_list.html');
+    }
+
+    public static function ssignup() {
+
+        View::make('suunnitelmat/signup.html');
+    }
+
 }
