@@ -9,7 +9,7 @@ class BandLink extends BaseModel {
         $this->validators = array('validate_name', 'validate_url');
     }
 
-    public static function findAllByBand($band_id) {
+    public static function find_all_by_band($band_id) {
 
         $query = DB::connection()->prepare('SELECT * FROM BandLink WHERE band_id = :id');
         $query->execute(array('id' => $band_id));

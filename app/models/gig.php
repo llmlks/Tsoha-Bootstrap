@@ -9,7 +9,7 @@ class Gig extends BaseModel {
         $this->validators = array('validate_time', 'validate_date', 'validate_location');
     }
 
-    public static function findwithid($id) {
+    public static function find_with_id($id) {
         
         $query = DB::connection()->prepare('SELECT * FROM Concert WHERE id = :id');
         $query->execute(array('id' => $id));
@@ -30,7 +30,7 @@ class Gig extends BaseModel {
         }
     }
     
-    public static function findAllByBand($id) {
+    public static function find_all_by_band($id) {
 
         $query = DB::connection()->prepare('SELECT * FROM Concert WHERE band_id = :id');
         $query->execute(array('id' => $id));
@@ -46,7 +46,7 @@ class Gig extends BaseModel {
         return $gigs;
     }
     
-    public static function findBandsNextGig($id) {
+    public static function find_bands_next_gig($id) {
         
         $query = DB::connection()->prepare('SELECT * FROM Concert WHERE band_id = :id ORDER BY (gigdate) DESC LIMIT 1');
         $query->execute(array('id' => $id));

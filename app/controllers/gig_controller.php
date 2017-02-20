@@ -11,7 +11,7 @@ class GigController extends BaseController {
         View::make('concert_add.html', array('user' => $user));
     }    
     
-    public static function newGig($id) {
+    public static function new_gig($id) {
         
         $params = $_POST;
         $user = null;
@@ -43,7 +43,7 @@ class GigController extends BaseController {
         if (isset($_SESSION['user'])) {
             $user = $_SESSION['user'];
         }        
-        $gig = Gig::findwithid($id);
+        $gig = Gig::find_with_id($id);
         
         View::make('concert_edit.html', array('gig' => $gig, 'user' => $user));
     }
@@ -78,7 +78,7 @@ class GigController extends BaseController {
     public static function delete($id) {
         
         $gig = new Gig(array('id' => $id));
-        $gig->delete();
+        $gig->delete($id);
         
         Redirect::to('/band/' . $_SESSION['user'] . '/edit');
     }

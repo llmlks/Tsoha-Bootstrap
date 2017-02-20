@@ -8,47 +8,47 @@ $routes->get('/hiekkalaatikko', function() {
     BandController::sandbox();
 });
 
-$routes->get('suunnitelmat/bedit', function() {
+$routes->get('/suunnitelmat/bedit', function() {
     BandController::band_edit();
 });
 
-$routes->get('suunnitelmat/bshow', function() {
+$routes->get('/suunnitelmat/bshow', function() {
     BandController::sband_show();
 });
 
-$routes->get('suunnitelmat/bmadd', function() {
+$routes->get('/suunnitelmat/bmadd', function() {
     BandController::bandmember_add();
 });
 
-$routes->get('suunnitelmat/bmedit', function() {
+$routes->get('/suunnitelmat/bmedit', function() {
     BandController::bandmember_edit();
 });
 
-$routes->get('suunnitelmat/cadd', function() {
+$routes->get('/suunnitelmat/cadd', function() {
     BandController::concert_add();
 });
 
-$routes->get('suunnitelmat/cedit', function() {
+$routes->get('/suunnitelmat/cedit', function() {
     BandController::concert_edit();
 });
 
-$routes->get('suunnitelmat/flist', function() {
+$routes->get('/suunnitelmat/flist', function() {
     BandController::favourite();
 });
 
-$routes->get('suunnitelmat/home', function() {
+$routes->get('/suunnitelmat/home', function() {
     BandController::shome();
 });
 
-$routes->get('suunnitelmat/login', function() {
+$routes->get('/suunnitelmat/login', function() {
     BandController::slogin();
 });
 
-$routes->get('suunnitelmat/search', function() {
+$routes->get('/suunnitelmat/search', function() {
     BandController::search();
 });
 
-$routes->get('suunnitelmat/signup', function() {
+$routes->get('/suunnitelmat/signup', function() {
     BandController::ssignup();    
 });
 
@@ -57,11 +57,11 @@ $routes->get('/', function() {
 });
 
 $routes->post('/', function() {
-    BandController::searchWithName();
+    BandController::search_with_name();
 });
 
 $routes->get('/login', function() {
-    BandController::login();
+    BandController::log_in();
 });
 
 $routes->post('/login', function() {
@@ -69,11 +69,11 @@ $routes->post('/login', function() {
 });
 
 $routes->get('/signup', function() {
-    BandController::signup();
+    BandController::sign_up();
 });
 
 $routes->post('/signup', function() {
-    BandController::newband();
+    BandController::new_band();
 });
 
 $routes->get('/search', function() {
@@ -81,7 +81,7 @@ $routes->get('/search', function() {
 });
 
 $routes->post('/search', function() {
-    BandController::searchWithName();
+    BandController::search_with_name();
 });
 
 $routes->get('/band/:id/edit', 'check_logged_in', function() {
@@ -97,7 +97,7 @@ $routes->get('/band/:id/delete', 'check_logged_in', function() {
 });
 
 $routes->get('/logout', 'check_logged_in', function() {
-    BandController::logout();
+    BandController::log_out();
 });
 
 $routes->get('/band/:id/upvote', function($id) {
@@ -109,7 +109,7 @@ $routes->get('/band/:id/downvote', function($id) {
 });
 
 $routes->post('/band/:id/to_favourites', 'check_logged_in', function($id) {
-    FavouriteController::newfavourite($id);
+    FavouriteController::new_favourite($id);
 });
 
 $routes->get('/favourites/:id', function($id) {
@@ -137,7 +137,7 @@ $routes->get('/band/:id/newmember', 'check_logged_in', function() {
 });
 
 $routes->post('/band/:id/newmember', 'check_logged_in', function($id) {
-    MemberController::newMember($id);
+    MemberController::new_member($id);
 });
 
 $routes->get('/gig/:id/edit', 'check_logged_in', function($id) {
@@ -157,7 +157,7 @@ $routes->get('/band/:id/newgig', 'check_logged_in', function() {
 });
 
 $routes->post('/band/:id/newgig', 'check_logged_in', function($id) {
-    GigController::newGig($id);
+    GigController::new_gig($id);
 });
 
 $routes->get('/band/:id/newlink', 'check_logged_in', function() {
@@ -165,7 +165,7 @@ $routes->get('/band/:id/newlink', 'check_logged_in', function() {
 });
 
 $routes->post('/band/:id/newlink', 'check_logged_in', function($id) {
-    LinkController::newLink($id);
+    LinkController::new_link($id);
 });
 
 $routes->get('/bandlink/:id/delete', 'check_logged_in', function($id) {

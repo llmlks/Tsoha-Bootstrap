@@ -4,8 +4,8 @@ class GenreController extends BaseController {
 
     public static function find($id) {
 
-        $bands = BandGenre::findbandsbygenre($id);
-        $genres = Genre::findall();
+        $bands = BandGenre::find_bands_by_genre($id);
+        $genres = Genre::find_all();
         $user = null;
         if (isset($_SESSION['user'])) {
             $user = $_SESSION['user'];
@@ -13,9 +13,9 @@ class GenreController extends BaseController {
 
         if ($bands) {
             foreach ($bands as $band) {
-                $band->nextgig = Gig::findBandsNextGig($band->id);
-                $band->genres = BandGenre::findgenresforband($band->id);
-                $band->members = Member::findallbyband($band->id);
+                $band->nextgig = Gig::find_bands_next_gig($band->id);
+                $band->genres = BandGenre::find_genres_for_band($band->id);
+                $band->members = Member::find_all_by_band($band->id);
             }
         }
 

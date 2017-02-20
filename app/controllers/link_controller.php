@@ -11,7 +11,7 @@ class LinkController extends BaseController {
         View::make('link_add.html', array('user' => $user));
     }
 
-    public static function newLink($id) {
+    public static function new_link($id) {
 
         $params = $_POST;
         $user = null;

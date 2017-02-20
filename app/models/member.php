@@ -9,7 +9,7 @@ class Member extends BaseModel {
         $this->validators = array('validate_name', 'validate_instruments', 'validate_date', 'validate_resigned');
     }
 
-    public static function findallbyband($id) {
+    public static function find_all_by_band($id) {
 
         $query = DB::connection()->prepare('SELECT * FROM Member WHERE band_id = :band_id');
         $query->execute(array('band_id' => $id));
@@ -30,7 +30,7 @@ class Member extends BaseModel {
         return $members;
     }
 
-    public static function findwithid($id) {
+    public static function find_with_id($id) {
 
         $query = DB::connection()->prepare('SELECT * FROM Member WHERE id = :id '
                 . 'LIMIT 1');
@@ -98,14 +98,10 @@ class Member extends BaseModel {
     }
 
     public function validate_date() {
-        if (parent::validate_date($this->joined) == false) {
-            return 'Please insert a valid date for joining in YYYY-MM-DD format';
-        }
+        return parent::validate_date($this->joined);
     }
 
     public function validate_resigned() {
-        if (parent::validate_date($this->resigned) == false && $this->resigned != NULL) {
-            return 'Please insert a valid date for resigning in YYYY-MM-DD format';
-        }
+        return parent::validate_date($this->resigned);
     }    
 }

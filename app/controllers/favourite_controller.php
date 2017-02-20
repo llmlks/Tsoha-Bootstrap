@@ -4,21 +4,21 @@ class FavouriteController extends BaseController {
 
     public static function favourites($id) {
 
-        $favourites = Favourite::findAll($id);
+        $favourites = Favourite::find_all($id);
         $user = null;
         if (isset($_SESSION['user'])) {
             $user = $_SESSION['user'];
         }
         
         foreach ($favourites as $band) {
-            $band->nextgig = Gig::findBandsNextGig($band->id);
+            $band->nextgig = Gig::find_bands_next_gig($band->id);
         }
 
-        $band = Band::findwithid($id);
+        $band = Band::find_with_id($id);
         View::make('favourite_list.html', array('band' => $band, 'favourites' => $favourites, 'user' => $user));
     }
 
-    public static function newfavourite($id) {
+    public static function new_favourite($id) {
 
         if (isset($_SESSION['user'])) {
 
@@ -27,7 +27,7 @@ class FavouriteController extends BaseController {
                 'band_id' => $_SESSION['user']
             ));
 
-            $favourite->saveFavourite();
+            $favourite->save();
         }
         Redirect::to('/band/' . $id);
     }
@@ -40,7 +40,7 @@ class FavouriteController extends BaseController {
                 'band_id' => $_SESSION['user']
             ));
 
-            $favourite->deleteFavourite();
+            $favourite->delete();
             Redirect::to('/favourites/' . $_SESSION['user']);
         } else {
             Redirect::to('/');

@@ -25,7 +25,7 @@
                     {{favourite.nextgig.time}}, {{favourite.nextgig.date}}, {{favourite.nextgig.location}}
                     {% endif %}
                 </td>
-                {% if user %}
+                {% if user == favourite.band_id %}
                 <th><a class="btn btn-danger" href="{{base_path}}/favourite/{{favourite.id}}/delete">Delete</a></th>
                 {% endif %}
             </tr>

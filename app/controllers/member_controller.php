@@ -12,7 +12,7 @@ class MemberController extends BaseController {
         View::make('bandmember_add.html', array('user' => $user));
     }
 
-    public static function newMember($id) {
+    public static function new_member($id) {
 
         $params = $_POST;
         $user = null;
@@ -40,7 +40,7 @@ class MemberController extends BaseController {
 
     public static function edit($id) {
 
-        $member = Member::findwithid($id);
+        $member = Member::find_with_id($id);
 
         View::make('bandmember_edit.html', array('member' => $member));
     }
@@ -52,15 +52,15 @@ class MemberController extends BaseController {
         if (isset($_SESSION['user'])) {
             $user = $_SESSION['user'];
         }
-        
+
         $attributes = array(
             'id' => $id,
             'band_id' => $_SESSION['user'],
             'membername' => $params['name'],
             'instruments' => $params['instruments'],
             'joined' => $params['joined'],
-            'resigned' => $params['resigned']
-        );
+            'resigned' => $params['resigned']);
+        
         $member = new Member($attributes);
         $errors = $member->errors();
 

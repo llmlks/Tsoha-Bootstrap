@@ -8,7 +8,7 @@ class BandGenre extends BaseModel {
         parent::__construct($attributes);
     }
 
-    public static function findgenresforband($id) {
+    public static function find_genres_for_band($id) {
 
         $query = DB::connection()->prepare('SELECT * FROM Genre WHERE id IN (SELECT genre_id FROM BandGenre WHERE band_id = :band)');
         $query->execute(array('band' => $id));
@@ -26,7 +26,7 @@ class BandGenre extends BaseModel {
         return $genres;
     }
 
-    public static function findbandsbygenre($id) {
+    public static function find_bands_by_genre($id) {
 
         $query = DB::connection()->prepare('SELECT * FROM Band WHERE id IN (SELECT band_id FROM BandGenre WHERE genre_id = :genre) ORDER BY likes');
         $query->execute(array('genre' => $id));
@@ -53,7 +53,7 @@ class BandGenre extends BaseModel {
         return $bands;
     }
     
-    public static function findgenresexcludingbands($id) {
+    public static function find_genres_excluding_bands($id) {
 
         $query = DB::connection()->prepare('SELECT * FROM Genre WHERE id NOT IN (SELECT genre_id FROM BandGenre WHERE band_id = :band)');
         $query->execute(array('band' => $id));

@@ -3,11 +3,9 @@
 {% block content %}
 <h2>Add new link</h2>
 
-{% if error %}
+{% for error in errors %}
 {{error}}
-{% elseif message %}
-{{message}}
-{% endif %}
+{% endfor %}
 
 <form method="post" action="{{base_path}}/band/{{user}}/newlink">
     

@@ -10,7 +10,7 @@ class Band extends BaseModel {
         $this->validators = array('validate_name', 'validate_username', 'validate_password');
     }
 
-    public static function findall($page) {
+    public static function find_all($page) {
 
         $page_size = 10;
         $offset = $page_size * ($page - 1);
@@ -36,7 +36,7 @@ class Band extends BaseModel {
         return $bands;
     }
 
-    public static function findwithid($id) {
+    public static function find_with_id($id) {
 
         $query = DB::connection()->prepare('SELECT * FROM Band WHERE id = :id '
                 . 'LIMIT 1');
@@ -60,7 +60,7 @@ class Band extends BaseModel {
         return null;
     }
 
-    public static function findwithname($bandname) {
+    public static function find_with_name($bandname) {
 
         $bandname = '%' . strtolower($bandname) . '%';
 

@@ -19,7 +19,7 @@ class BandController extends BaseController {
             'location' => ''
         ));
 
-        $bands = BandGenre::findbandsbygenre(1);
+        $bands = BandGenre::find_bands_by_genre(1);
         Kint::dump($band->errors());
         Kint::dump($gig->errors());
         Kint::dump($bands);
@@ -27,15 +27,15 @@ class BandController extends BaseController {
 
     public static function band_show($id) {
 
-        $band = Band::findwithid($id);
-        $genres = BandGenre::findgenresforband($id);
-        $members = Member::findallbyband($id);
-        $gigs = Gig::findAllByBand($id);
-        $links = BandLink::findAllByBand($id);
+        $band = Band::find_with_id($id);
+        $genres = BandGenre::find_genres_for_band($id);
+        $members = Member::find_all_by_band($id);
+        $gigs = Gig::find_all_by_band($id);
+        $links = BandLink::find_all_by_band($id);
         $in_favourites = false;
         $user = false;
         if (isset($_SESSION['user'])) {
-            $in_favourites = Favourite::isInFavourites($id);
+            $in_favourites = Favourite::is_in_favourites($id);
             $user = $_SESSION['user'];
         }
 
@@ -56,11 +56,11 @@ class BandController extends BaseController {
         ));
     }
 
-    public static function searchWithName() {
+    public static function search_with_name() {
 
         $search = $_POST["search"];
-        $bands = Band::findwithname($search);
-        $genres = Genre::findall();
+        $bands = Band::find_with_name($search);
+        $genres = Genre::find_all();
         $user = null;
         if (isset($_SESSION['user'])) {
             $user = $_SESSION['user'];
@@ -68,9 +68,9 @@ class BandController extends BaseController {
 
         if ($bands) {
             foreach ($bands as $band) {
-                $band->nextgig = Gig::findBandsNextGig($band->id);
-                $band->genres = BandGenre::findgenresforband($band->id);
-                $band->members = Member::findallbyband($band->id);
+                $band->nextgig = Gig::find_bands_next_gig($band->id);
+                $band->genres = BandGenre::find_genres_for_band($band->id);
+                $band->members = Member::find_all_by_band($band->id);
             }
         }
 
@@ -79,12 +79,12 @@ class BandController extends BaseController {
         View::make('search_list.html', array('genres' => $genres, 'bands' => $bands, 'user' => $user, 'message' => $message));
     }
 
-    public static function signup() {
+    public static function sign_up() {
 
         View::make('signup.html');
     }
 
-    public static function newband() {
+    public static function new_band() {
         $params = $_POST;
 
         $attributes = array(
@@ -116,8 +116,8 @@ class BandController extends BaseController {
         $band_count = Band::count();
         $pages = ceil($band_count / 10);
 
-        $bands = Band::findall($page);
-        $genres = Genre::findall();
+        $bands = Band::find_all($page);
+        $genres = Genre::find_all();
 
         $user = null;
         if (isset($_SESSION['user'])) {
@@ -125,7 +125,7 @@ class BandController extends BaseController {
         }
 
         foreach ($bands as $band) {
-            $band->genres = BandGenre::findgenresforband($band->id);
+            $band->genres = BandGenre::find_genres_for_band($band->id);
         }
 
         View::make('home.html', array('pages' => $pages, 'bands' => $bands, 'user' => $user, 'genres' => $genres));
@@ -135,11 +135,11 @@ class BandController extends BaseController {
 
         $band = self::get_user_logged_in();
         $id = $band->id;
-        $members = Member::findallbyband($id);
-        $gigs = Gig::findAllByBand($id);
-        $links = BandLink::findAllByBand($id);
-        $genres = BandGenre::findgenresexcludingbands($id);
-        $bandgenres = BandGenre::findgenresforband($id);
+        $members = Member::find_all_by_band($id);
+        $gigs = Gig::find_all_by_band($id);
+        $links = BandLink::find_all_by_band($id);
+        $genres = BandGenre::find_genres_excluding_bands($id);
+        $bandgenres = BandGenre::find_genres_for_band($id);
 
         View::make('band_edit.html', array('bandgenres' => $bandgenres, 'links' => $links, 'band' => $band, 'members' => $members, 'gigs' => $gigs, 'user' => $id, 'genres' => $genres));
     }
@@ -158,10 +158,10 @@ class BandController extends BaseController {
             'password' => $user->password
         );
         $band = new Band($attributes);
-        $members = Member::findallbyband($id);
-        $gigs = Gig::findAllByBand($id);
-        $links = BandLink::findAllByBand($id);
-        $genres = Genre::findall();
+        $members = Member::find_all_by_band($id);
+        $gigs = Gig::find_all_by_band($id);
+        $links = BandLink::find_all_by_band($id);
+        $genres = Genre::find_all();
         $error = $band->validate_name();
 
         if ($error) {
@@ -175,7 +175,7 @@ class BandController extends BaseController {
 
     public static function upvote($id) {
 
-        $band = Band::findwithid($id);
+        $band = Band::find_with_id($id);
         Band::upvote($id);
         $_SESSION[$band->bandname] = true;
         Redirect::to('/band/' . $id);
@@ -183,7 +183,7 @@ class BandController extends BaseController {
 
     public static function downvote($id) {
 
-        $band = Band::findwithid($id);
+        $band = Band::find_with_id($id);
         Band::downvote($id);
         $_SESSION[$band->bandname] = false;
         Redirect::to('/band/' . $id);

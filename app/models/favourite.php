@@ -8,7 +8,7 @@ class Favourite extends BaseModel {
         parent::__construct($attributes);
     }
 
-    public static function findAll($id) {
+    public static function find_all($id) {
 
         $query = DB::connection()->prepare('SELECT * FROM Band WHERE id IN '
                 . '(SELECT favourite FROM BandFavourite WHERE band_id = :id)');
@@ -31,7 +31,7 @@ class Favourite extends BaseModel {
         return $favourites;
     }
     
-    public static function isInFavourites($id) {
+    public static function is_in_favourites($id) {
         
         $query = DB::connection()->prepare('SELECT favourite FROM BandFavourite WHERE band_id = :id');
         $query->execute(array('id' => $_SESSION['user']));
@@ -46,7 +46,7 @@ class Favourite extends BaseModel {
         return false;
     }
 
-    public function saveFavourite() {
+    public function save() {
 
         $query = DB::connection()->prepare('INSERT INTO BandFavourite (band_id, favourite) VALUES (:band, :favourite)');
 
@@ -54,7 +54,7 @@ class Favourite extends BaseModel {
             $this->favourite));
     }
 
-    public function deleteFavourite() {
+    public function delete() {
 
         $query = DB::connection()->prepare('DELETE FROM BandFavourite WHERE favourite = :favourite AND band_id = :band_id');
 

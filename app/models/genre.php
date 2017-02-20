@@ -8,7 +8,7 @@ class Genre extends BaseModel {
         parent::__construct($attributes);
     }
     
-    public static function findall() {
+    public static function find_all() {
         
         $query = DB::connection()->prepare('SELECT * FROM Genre');
         $query->execute();
@@ -24,7 +24,7 @@ class Genre extends BaseModel {
         return $genres;
     }
     
-    public static function findwithid($id) {
+    public static function find_with_id($id) {
         
         $query = DB::connection()->prepare('SELECT * FROM Genre WHERE id = :id '
                 . 'LIMIT 1');
@@ -39,7 +39,7 @@ class Genre extends BaseModel {
         return null;
     }
     
-    public static function findwithname($genrename) {
+    public static function find_with_name($genrename) {
         
         $genrename = strtolower($genrename);
         $search = '%' . $genrename . '%';

@@ -7,7 +7,7 @@ class BaseController {
         if (isset($_SESSION['user'])) {
             $id = $_SESSION['user'];
             
-            $band = Band::findwithid($id);
+            $band = Band::find_with_id($id);
             
             return $band;
         }
