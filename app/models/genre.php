@@ -39,26 +39,6 @@ class Genre extends BaseModel {
         return null;
     }
     
-    public static function find_with_name($genrename) {
-        
-        $genrename = strtolower($genrename);
-        $search = '%' . $genrename . '%';
-        
-        $query = DB::connection()->prepare('SELECT * FROM Genre WHERE LOWER(genrename)'
-                . ' LIKE :genrename');
-        $query->execute(array('genrename' => $search));
-        
-        $rows = $query->fetchAll();
-        $genres = array();
-        
-        foreach ($rows as $row) {
-            $genres[] = new Genre(array('id' => $row['id'], 'genrename' => 
-                $row['genrename']));
-        }
-        
-        return $genres;        
-    }
-    
     public static function save() {
         
         $query = DB::connection()->prepare('INSERT INTO Genre (genrename) '

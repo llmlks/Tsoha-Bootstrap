@@ -79,7 +79,7 @@ class BandController extends BaseController {
         View::make('search_list.html', array('genres' => $genres, 'bands' => $bands, 'user' => $user, 'message' => $message));
     }
 
-    public static function sign_up() {
+    public static function signup() {
 
         View::make('signup.html');
     }

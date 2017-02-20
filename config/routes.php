@@ -61,7 +61,7 @@ $routes->post('/', function() {
 });
 
 $routes->get('/login', function() {
-    BandController::log_in();
+    BandController::login();
 });
 
 $routes->post('/login', function() {
@@ -69,7 +69,7 @@ $routes->post('/login', function() {
 });
 
 $routes->get('/signup', function() {
-    BandController::sign_up();
+    BandController::signup();
 });
 
 $routes->post('/signup', function() {
