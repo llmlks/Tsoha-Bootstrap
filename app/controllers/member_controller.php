@@ -31,7 +31,7 @@ class MemberController extends BaseController {
         $errors = $member->errors();
 
         if (count($errors) > 0) {
-            View::make('bandmember_add.html', array('user' => $user, 'attributes' => $attributes, 'user' => $user, 'errors' => $errors));
+            View::make('bandmember_add.html', array('user' => $user, 'attributes' => $attributes, 'errors' => $errors));
         } else {
             $member->save();
             Redirect::to('/band/' . $id . '/edit');

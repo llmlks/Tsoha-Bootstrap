@@ -50,16 +50,25 @@ class Member extends BaseModel {
         return null;
     }
 
-    public static function save() {
-
-        $query = DB::connection()->prepare('INSERT INTO Member (band_id, membername, instruments, joined, resigned)'
-                . 'VALUES (:band, :name, :instr, :joined, :resigned) RETURNING id');
-        $query->execute(array(
-            'band' => $this->band_id,
-            'name' => $this->membername,
-            'instr' => $this->instruments,
-            'joined' => $this->joined,
-            'resigned' => $this->resigned));
+    public function save() {
+        if ($this->resigned == NULL) {
+            $query = DB::connection()->prepare('INSERT INTO Member (band_id, membername, instruments, joined)'
+                    . 'VALUES (:band, :name, :instr, :joined) RETURNING id');
+            $query->execute(array(
+                'band' => $this->band_id,
+                'name' => $this->membername,
+                'instr' => $this->instruments,
+                'joined' => $this->joined));
+        } else {
+            $query = DB::connection()->prepare('INSERT INTO Member (band_id, membername, instruments, joined, resigned)'
+                    . 'VALUES (:band, :name, :instr, :joined, :resigned) RETURNING id');
+            $query->execute(array(
+                'band' => $this->band_id,
+                'name' => $this->membername,
+                'instr' => $this->instruments,
+                'joined' => $this->joined,
+                'resigned' => $this->resigned));
+        }
 
         $row = $query->fetch();
 
@@ -74,15 +83,24 @@ class Member extends BaseModel {
     }
 
     public static function update() {
+        if ($this->resigned == NULL) {
+            $query = DB::connection()->prepare('UPDATE Member SET membername = :name, instruments = :instr, joined = :joined WHERE id = :id');
 
-        $query = DB::connection()->prepare('UPDATE Member SET membername = :name, instruments = :instr, joined = :joined, resigned = :resigned WHERE id = :id');
+            $query->execute(array(
+                'name' => $this->membername,
+                'instr' => $this->instruments,
+                'joined' => $this->joined,
+                'id' => $this->id));
+        } else {
+            $query = DB::connection()->prepare('UPDATE Member SET membername = :name, instruments = :instr, joined = :joined, resigned = :resigned WHERE id = :id');
 
-        $query->execute(array(
-            'name' => $this->membername,
-            'instr' => $this->instruments,
-            'joined' => $this->joined,
-            'resigned' => $this->resigned,
-            'id' => $this->id));
+            $query->execute(array(
+                'name' => $this->membername,
+                'instr' => $this->instruments,
+                'joined' => $this->joined,
+                'resigned' => $this->resigned,
+                'id' => $this->id));
+        }
     }
 
     public function validate_name() {
@@ -102,6 +120,9 @@ class Member extends BaseModel {
     }
 
     public function validate_resigned() {
-        return parent::validate_date($this->resigned);
-    }    
+        if ($this->resigned != NULL) {
+            return parent::validate_date($this->resigned);
+        }
+    }
+
 }
