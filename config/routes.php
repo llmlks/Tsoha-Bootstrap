@@ -97,7 +97,7 @@ $routes->get('/band/:id/delete', 'check_logged_in', function() {
 });
 
 $routes->get('/logout', 'check_logged_in', function() {
-    BandController::log_out();
+    BandController::logout();
 });
 
 $routes->get('/band/:id/upvote', function($id) {

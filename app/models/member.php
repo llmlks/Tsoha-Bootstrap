@@ -75,14 +75,14 @@ class Member extends BaseModel {
         $this->id = $row['id'];
     }
 
-    public static function delete() {
+    public function delete() {
 
         $query = DB::connection()->prepare('DELETE FROM Member WHERE id = :id');
 
         $query->execute(array('id' => $this->id));
     }
 
-    public static function update() {
+    public function update() {
         if ($this->resigned == NULL) {
             $query = DB::connection()->prepare('UPDATE Member SET membername = :name, instruments = :instr, joined = :joined WHERE id = :id');
 
