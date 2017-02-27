@@ -10,6 +10,8 @@ class Band extends BaseModel {
         $this->validators = array('validate_name', 'validate_username', 'validate_password');
     }
 
+    // Function to find all data objects from table Band, ordered by bands' upvotes, 
+    // and displayed 10 at a time, offset depending on the page number  
     public static function find_all($page) {
 
         $page_size = 10;
@@ -36,6 +38,7 @@ class Band extends BaseModel {
         return $bands;
     }
 
+    // Function to find a data object from table Band when band's id is known  
     public static function find_with_id($id) {
 
         $query = DB::connection()->prepare('SELECT * FROM Band WHERE id = :id '
@@ -60,6 +63,7 @@ class Band extends BaseModel {
         return null;
     }
 
+    // Function to find all bands whose name matches the given string pattern (case insensitive)
     public static function find_with_name($bandname) {
 
         $bandname = '%' . strtolower($bandname) . '%';
@@ -90,6 +94,7 @@ class Band extends BaseModel {
         return $bands;
     }
 
+    // Function to save a new data object into table Band
     public function save() {
 
         $query = DB::connection()->prepare('INSERT INTO Band (bandname, '
@@ -105,6 +110,7 @@ class Band extends BaseModel {
         $this->id = $row['id'];
     }
 
+    // Function to delete a data object from table band, also deleting all relevant data objects referring to it from other tables
     public static function delete($id) {
         
         $query = DB::connection()->prepare('DELETE FROM BandGenre WHERE band_id = :id');
@@ -136,6 +142,7 @@ class Band extends BaseModel {
         $query->execute(array('id' => $id));
     }
 
+    // Function to update a data object in table Band  
     public static function update($params) {
         
         $updates = array('bandname' => $params['bandname'],
@@ -149,18 +156,21 @@ class Band extends BaseModel {
         $query->execute($updates);
     }
 
+    // Function to update band's attribute likes by incrementing it by 1
     public static function upvote($id) {
         $query = DB::connection()->prepare('UPDATE Band SET likes = (likes + 1) WHERE id = :id');
 
         $query->execute(array('id' => $id));
     }
     
+    // Function to update band's attribute likes by decrementing it by 1  
     public static function downvote($id) {
         $query = DB::connection()->prepare('UPDATE Band SET likes = (likes - 1) WHERE id = :id');
 
         $query->execute(array('id' => $id));
     }
     
+    // Function to count all data objects in table Band
     public static function count() {
         $query = DB::connection()->prepare('SELECT COUNT(*) FROM Band');
         $query->execute();
@@ -169,6 +179,7 @@ class Band extends BaseModel {
         return $row['count'];
     }
     
+    // Function to authenticate whether given username-password matches a data object in table Band
     public static function authenticate($username, $password) {
         
         $query = DB::connection()->prepare('SELECT * FROM Band WHERE username = :username AND password = :password');
@@ -191,12 +202,14 @@ class Band extends BaseModel {
         }
     }    
     
+    // Function to validate string length of band's name
     public function validate_name() {
         if (parent::validate_string_length($this->bandname, 2, 50) == false) {
             return 'Please insert a valid name (2-50 characters)';
         }
     }
     
+    // Function to validate string length of band's username as well as checking whether it is unique
     public function validate_username() {
         
         $query = DB::connection()->prepare('SELECT * FROM Band WHERE username = :username');
@@ -212,6 +225,7 @@ class Band extends BaseModel {
         }        
     }
     
+    // Function to validate string length of band's password
     public function validate_password() {
         if (parent::validate_string_length($this->password, 6, 12) == false) {
             return 'Please insert a valid password (6-12 characters)';

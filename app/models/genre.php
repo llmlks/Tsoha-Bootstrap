@@ -8,6 +8,7 @@ class Genre extends BaseModel {
         parent::__construct($attributes);
     }
     
+    // Function to find all data objects in table Genre  
     public static function find_all() {
         
         $query = DB::connection()->prepare('SELECT * FROM Genre');
@@ -24,21 +25,7 @@ class Genre extends BaseModel {
         return $genres;
     }
     
-    public static function find_with_id($id) {
-        
-        $query = DB::connection()->prepare('SELECT * FROM Genre WHERE id = :id '
-                . 'LIMIT 1');
-        $query->execute(array('id' => $id));
-        
-        $row = $query->fetch();
-        if ($row) {
-            $genre = new Genre(array('id' => $row['id'], 'genrename' => 
-                $row['genrename']));
-            return $genre;
-        }
-        return null;
-    }
-    
+    // Function to store a new data object in table Genre  
     public static function save() {
         
         $query = DB::connection()->prepare('INSERT INTO Genre (genrename) '
@@ -50,20 +37,15 @@ class Genre extends BaseModel {
         $this->id = $row['id'];
     }
     
+    // Function to delete a data object from table Genre  
     public static function delete() {
 
         $query = DB::connection()->prepare('DELETE FROM Genre WHERE id = :id');
 
         $query->execute(array('id' => $this->id));
     }
-
-    public static function update() {
-
-        $query = DB::connection()->prepare('UPDATE Genre (genrename) VALUES (:genrename) WHERE id = :id');
-
-        $query->execute(array('genrename' => $this->genrename, 'id' => $this->id));
-    }
     
+    // Function to validate string length of genre's name  
     public static function validate_name($string, $min, $max) {
         parent::validate_string_length($string, 2, 50);
     }

@@ -9,6 +9,7 @@ class Member extends BaseModel {
         $this->validators = array('validate_name', 'validate_instruments', 'validate_date', 'validate_resigned');
     }
 
+    // Function to find data objects in table Member, based on the band's id    
     public static function find_all_by_band($id) {
 
         $query = DB::connection()->prepare('SELECT * FROM Member WHERE band_id = :band_id');
@@ -30,6 +31,7 @@ class Member extends BaseModel {
         return $members;
     }
 
+    // Function to find a data object in table Member, based on the id    
     public static function find_with_id($id) {
 
         $query = DB::connection()->prepare('SELECT * FROM Member WHERE id = :id '
@@ -50,6 +52,7 @@ class Member extends BaseModel {
         return null;
     }
 
+    // Function to store a new data object in table Member, checks whether date of resignation is provided    
     public function save() {
         if ($this->resigned == NULL) {
             $query = DB::connection()->prepare('INSERT INTO Member (band_id, membername, instruments, joined)'
@@ -75,13 +78,15 @@ class Member extends BaseModel {
         $this->id = $row['id'];
     }
 
+    // Function to delete a data object from table Member, based on the id    
     public function delete() {
 
         $query = DB::connection()->prepare('DELETE FROM Member WHERE id = :id');
 
         $query->execute(array('id' => $this->id));
     }
-
+    
+    // Function to update a data object in table Member, based on the id    
     public function update() {
         if ($this->resigned == NULL) {
             $query = DB::connection()->prepare('UPDATE Member SET membername = :name, instruments = :instr, joined = :joined WHERE id = :id');
@@ -103,22 +108,26 @@ class Member extends BaseModel {
         }
     }
 
+    // Function to validate the string length of member's name    
     public function validate_name() {
         if (parent::validate_string_length($this->membername, 2, 50) == false) {
             return 'Please insert a valid name (2-50 characters)';
         }
     }
 
+    // Function to validate the string length of member's instruments attribute    
     public function validate_instruments() {
         if (parent::validate_string_length($this->instruments, 2, 100) == false) {
             return 'Please insert a valid instrument/s (2-100 characters)';
         }
     }
 
+    // Function to validate the date of joining    
     public function validate_date() {
         return parent::validate_date($this->joined);
     }
 
+    // Function to validate the date of resignation (can be NULL)   
     public function validate_resigned() {
         if ($this->resigned != NULL) {
             return parent::validate_date($this->resigned);

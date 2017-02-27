@@ -9,6 +9,7 @@ class Gig extends BaseModel {
         $this->validators = array('validate_time', 'validate_date', 'validate_location');
     }
 
+    // Function to find data object from table Concert when id is known
     public static function find_with_id($id) {
         
         $query = DB::connection()->prepare('SELECT * FROM Concert WHERE id = :id');
@@ -29,7 +30,8 @@ class Gig extends BaseModel {
             return null;
         }
     }
-    
+
+    // Function to find data objects from table Concert when band is known
     public static function find_all_by_band($id) {
 
         $query = DB::connection()->prepare('SELECT * FROM Concert WHERE band_id = :id');
@@ -46,6 +48,7 @@ class Gig extends BaseModel {
         return $gigs;
     }
     
+    // Function to find next concert for band with band's id    
     public static function find_bands_next_gig($id) {
         
         $query = DB::connection()->prepare('SELECT * FROM Concert WHERE band_id = :id ORDER BY (gigdate) DESC LIMIT 1');
@@ -67,6 +70,7 @@ class Gig extends BaseModel {
         }
     }
 
+    // Function to save a new data object into table Concert    
     public function save() {
 
         $query = DB::connection()->prepare('INSERT INTO Concert (band_id, gigtime, gigdate, location) '
@@ -81,7 +85,8 @@ class Gig extends BaseModel {
         
         $this->id = $row['id'];
     }
-    
+
+    // Function to update a data object based on its id    
     public static function update($params) {
 
         $updates = array(
@@ -97,6 +102,7 @@ class Gig extends BaseModel {
         $query->execute($updates);        
     }
 
+    // Function to delete a data object    
     public static function delete($id) {
 
         $query = DB::connection()->prepare('DELETE FROM Concert WHERE id = :id');
@@ -104,16 +110,19 @@ class Gig extends BaseModel {
         $query->execute(array('id' => $id));
     }
     
+    // Function to validate the string length of concert location    
     public function validate_location() {
         if (parent::validate_string_length($this->location, 2, 100) == false) {
             return 'Please enter a valid location (2-100 characters)';
         }
     }
     
+    // Function to validate the time of concert, 24hr clock    
     public function validate_time() {
         return parent::validate_time($this->time);
     }
     
+    // Function to validate the date of concert    
     public function validate_date() {
         return parent::validate_date($this->date);
     }

@@ -65,7 +65,7 @@ class MemberController extends BaseController {
         $errors = $member->errors();
 
         if (count($errors) > 0) {
-            View::make('bandmember_edit.html', array('errors' => $errors, 'attributes' => $attributes, 'user' => $user));
+            View::make('bandmember_edit.html', array('errors' => $errors, 'member' => $attributes, 'user' => $user));
         } else {
             $member->update($attributes);
 

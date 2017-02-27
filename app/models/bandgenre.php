@@ -8,6 +8,7 @@ class BandGenre extends BaseModel {
         parent::__construct($attributes);
     }
 
+    // Function to find all genres for band, when band's id is known, using tables Genre and BandGenre  
     public static function find_genres_for_band($id) {
 
         $query = DB::connection()->prepare('SELECT * FROM Genre WHERE id IN (SELECT genre_id FROM BandGenre WHERE band_id = :band)');
@@ -26,6 +27,7 @@ class BandGenre extends BaseModel {
         return $genres;
     }
 
+    // Function to find all bands for genre, when genre's id is known, using tables Genre and BandGenre. Results are orderes by the bands' upvotes
     public static function find_bands_by_genre($id) {
 
         $query = DB::connection()->prepare('SELECT * FROM Band WHERE id IN (SELECT band_id FROM BandGenre WHERE genre_id = :genre) ORDER BY likes');
@@ -53,6 +55,7 @@ class BandGenre extends BaseModel {
         return $bands;
     }
     
+    // Function to find all genres that are not linked to the band, whose id is known.  
     public static function find_genres_excluding_bands($id) {
 
         $query = DB::connection()->prepare('SELECT * FROM Genre WHERE id NOT IN (SELECT genre_id FROM BandGenre WHERE band_id = :band)');
@@ -72,6 +75,7 @@ class BandGenre extends BaseModel {
         
     }
 
+    // Function to store a new data object into table BandGenre
     public function save() {
 
         $query = DB::connection()->prepare('INSERT INTO BandGenre (band_id, genre_id) VALUES (:band, :genre)');
@@ -80,6 +84,7 @@ class BandGenre extends BaseModel {
             $this->genre_id));
     }
 
+    // Function to delete a data object from table BandGenre
     public function delete() {
 
         $query = DB::connection()->prepare('DELETE FROM BandGenre WHERE genre_id = :genre AND band_id = :band_id');

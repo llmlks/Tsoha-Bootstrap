@@ -67,7 +67,7 @@ class GigController extends BaseController {
         $errors = $gig->errors();
 
         if (count($errors) > 0) {
-            View::make('band_edit.html', array('errors' => $errors, 'attributes' => $attributes, 'user' => $user));
+            View::make('concert_edit.html', array('errors' => $errors, 'gig' => $attributes, 'user' => $user));
         } else {
             $gig->update($attributes);
 
