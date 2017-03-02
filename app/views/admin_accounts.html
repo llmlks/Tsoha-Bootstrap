@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Manage accounts</h2>
+
+<nav>
+    <ul class="pagination">
+    <li class="{% if not prev_page %}disabled{% endif %}"><a href="{{base_path}}/?page={{prev_page}}"><span aria-hidden="true">«</span><span class="sr-only">Previous</span></a></li>
+    {% for page in 1..pages %}
+      <li class="{% if curr_page == page %}active{% endif %}"><a href="{{base_path}}/?page={{page}}">{{page}}</a></li>
+    {% endfor %}
+    <li class="{% if not next_page %}disabled{% endif %}"><a href="{{base_path}}/?page={{next_page}}"><span aria-hidden="true">»</span><span class="sr-only">Next</span></a></li>
+  </ul>
+</nav>
+
+<div class="form-group">
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>Name of band</th>
+                <th>Username</th>
+                <th>Password</th>
+            </tr>
+        </thead>
+        
+        <tbody>
+            {% for band in bands %}
+            <tr>
+                <td>{{band.bandname}}</td>
+                <td>{{band.username}}</td>
+                <td>{{band.password}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}

@@ -15,7 +15,9 @@ class FavouriteController extends BaseController {
         }
 
         $band = Band::find_with_id($id);
-        View::make('favourite_list.html', array('band' => $band, 'favourites' => $favourites, 'user' => $user));
+        $admin = self::get_admin_logged_in();
+        
+        View::make('favourite_list.html', array('band' => $band, 'favourites' => $favourites, 'user' => $user, 'admin' => $admin));
     }
 
     public static function new_favourite($id) {

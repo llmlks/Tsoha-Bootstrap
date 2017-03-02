@@ -2,7 +2,7 @@
 
 {% block content %}
 
-{% if user == band.id %}
+{% if user == band.id or admin %}
 {% elseif voted == false %}
 <a class="btn-success btn" href="{{base_path}}/band/{{band.id}}/upvote">Upvote</a>
 {% else %}
@@ -14,7 +14,11 @@
     <a class="btn btn-success" style="float: right" href="{{base_path}}/favourites/{{band.id}}">Favourites</a>
 </h2>
 
-<p>{{message}}</p>
+{% if message %}
+<div class="alert alert-success">
+    {{message}}
+</div>
+{% endif %}
 
 {% for genre in genres %}
 <a class="btn btn-primary btn-sm" href="{{base_path}}/genre_search/{{genre.id}}">{{genre.genrename}}</a>

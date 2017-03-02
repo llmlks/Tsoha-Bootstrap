@@ -43,6 +43,9 @@
                         {% if user %}
                         <li><a href="{{base_path}}/band/{{user}}">Profile</a></li>
                         <li><a href="{{base_path}}/favourites/{{user}}">Favourites</a></li>
+                        {% elseif admin %}
+                        <li><a href="{{base_path}}/genres">Manage genres</a></li>
+                        <li><a href="{{base_path}}/accounts">Manage accounts</a></li>                        
                         {% endif %}
                     </ul>
                     
@@ -50,6 +53,8 @@
                         {% if user %}
                         <li><a href="{{base_path}}/band/{{user}}/edit">Edit your information</a></li>
                         <li><a href="{{base_path}}/logout">Log out</a></li>
+                        {% elseif admin %}
+                        <li><a href="{{base_path}}/logout">Log out</a></li>                        
                         {% else %}
                         <li><a href="{{base_path}}/login">Log In</a></li>
                         <li><a href="{{base_path}}/signup">Sign Up</a></li> 

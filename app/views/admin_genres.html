@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Manage genres</h2>
+
+<label>Delete existing genres</label>
+<div class="form-group">
+    {% for genre in genres %}    
+    <a class="btn btn-danger btn-sm" href="{{base_path}}/genres/{{genre.id}}/delete">{{genre.genrename}}</a>
+    {% endfor %}
+</div>
+
+<label>Add new genres</label>
+{% if errors %}
+<div class="alert alert-danger">
+    {% for error in errors %}
+    <p>{{error}}</p>  
+    {% endfor %}
+</div>
+{% endif %}
+<form method="post" action="{{base_path}}/genres">
+    <div class="form-group">
+        <input class="form-control" name="genrename" type="text" value="{{genrename}}">
+    </div>
+    
+    <div>
+        <button type="submit" class="btn btn-success">Add new genre</button>
+    </div>
+</form>
+
+{% endblock %}

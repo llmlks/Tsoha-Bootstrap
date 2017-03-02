@@ -1,11 +1,15 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h2>Alice</h2>
+<h2>{{member.membername}}</h2>
 
-{% for error in errors %}
-<p>{{error}}</p>
-{% endfor %}
+{% if errors %}
+<div class="alert alert-danger">
+    {% for error in errors %}
+    <p>{{error}}</p>  
+    {% endfor %}
+</div>
+{% endif %}
 
 <form method="post" action="{{base_path}}/member/{{member.id}}/edit">
     <div class="form-group">

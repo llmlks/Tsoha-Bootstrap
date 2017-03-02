@@ -19,8 +19,41 @@ class GenreController extends BaseController {
             }
         }
 
+        $admin = self::get_admin_logged_in();
         $message = "There were no matches to your search";
 
-        View::make('search_list.html', array('genres' => $genres, 'bands' => $bands, 'user' => $user, 'message' => $message));
+        View::make('search_list.html', array('genres' => $genres, 'bands' => $bands, 'user' => $user, 'message' => $message, 'admin' => $admin));
+    }
+    
+    public static function manage_genres() {
+        
+        $genres = Genre::find_all();
+                
+        View::make('admin_genres.html', array('genres' => $genres, 'admin' => $_SESSION['admin']));
+    }
+    
+    public static function add_genre() {
+        
+        $genrename = $_POST['genrename'];
+        
+        $genre = new Genre(array('genrename' => $genrename));
+        $errors = $genre->errors();
+
+        $genres = Genre::find_all();
+        
+        if (count($errors) > 0) {
+            View::make('admin_genres.html', array('genres' => $genres, 'admin' => $_SESSION['admin'], 'genrename' => $genrename, 'errors' => $errors));
+        } else {
+            $genre->save();
+            Redirect::to('/genres');
+        }
+    }
+    
+    public static function delete_genre($id) {
+        
+        $genre = new Genre(array('id' => $id));
+        $genre->delete();
+        
+        Redirect::to('/genres');
     }
 }

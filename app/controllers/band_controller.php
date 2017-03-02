@@ -44,6 +44,8 @@ class BandController extends BaseController {
             $voted = $_SESSION[$band->bandname];
         }
 
+        $admin = self::get_admin_logged_in();
+
         View::make('band_show.html', array(
             'band' => $band,
             'genres' => $genres,
@@ -52,7 +54,8 @@ class BandController extends BaseController {
             'links' => $links,
             'in_favourites' => $in_favourites,
             'user' => $user,
-            'voted' => $voted
+            'voted' => $voted,
+            'admin' => $admin
         ));
     }
 
@@ -75,8 +78,9 @@ class BandController extends BaseController {
         }
 
         $message = "There were no matches to your search";
+        $admin = self::get_admin_logged_in();
 
-        View::make('search_list.html', array('genres' => $genres, 'bands' => $bands, 'user' => $user, 'message' => $message));
+        View::make('search_list.html', array('genres' => $genres, 'bands' => $bands, 'user' => $user, 'message' => $message, 'admin' => $admin));
     }
 
     public static function signup() {
@@ -128,7 +132,9 @@ class BandController extends BaseController {
             $band->genres = BandGenre::find_genres_for_band($band->id);
         }
 
-        View::make('home.html', array('pages' => $pages, 'bands' => $bands, 'user' => $user, 'genres' => $genres));
+        $admin = self::get_admin_logged_in();
+
+        View::make('home.html', array('pages' => $pages, 'bands' => $bands, 'user' => $user, 'genres' => $genres, 'admin' => $admin));
     }
 
     public static function edit() {
@@ -203,6 +209,7 @@ class BandController extends BaseController {
 
     public static function logout() {
         $_SESSION['user'] = null;
+        $_SESSION['admin'] = null;
         Redirect::to('/', array('message' => 'You have successfully logged out'));
     }
 
@@ -213,15 +220,36 @@ class BandController extends BaseController {
     public static function handle_login() {
 
         $params = $_POST;
+        $username = $params['username'];
+        $password = $params['password'];
 
-        $user = Band::authenticate($params['username'], $params['password']);
+        if ($username == 'admin' && $password == 'admin') {
+            $_SESSION['admin'] = true;
+            Redirect::to('/', array('admin' => $_SESSION['admin']));
+        }
+
+        $user = Band::authenticate($username, $password);
 
         if (!$user) {
-            View::make('login.html', array('error' => 'Invalid username or password', 'username' => $params['username']));
+            View::make('login.html', array('error' => 'Invalid username or password', 'username' => $username));
         } else {
             $_SESSION['user'] = $user->id;
             Redirect::to('/', array('message' => 'Welcome back ' . $user->username . '!', 'user' => $_SESSION['user']));
         }
+    }
+
+    public static function manage_accounts() {
+
+        $page = 1;
+        if (isset($_GET['page'])) {
+            $page = $_GET['page'];
+        }
+        $band_count = Band::count();
+        $pages = ceil($band_count / 10);
+
+        $bands = Band::find_all($page);
+
+        View::make('admin_accounts.html', array('admin' => $_SESSION['admin'], 'bands' => $bands, 'pages' => $pages));
     }
 
     public static function band_edit() {

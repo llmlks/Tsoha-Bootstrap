@@ -4,6 +4,14 @@ function check_logged_in() {
     BaseController::check_logged_in();
 }
 
+function check_admin() {
+    BaseController::check_admin();
+}
+
+function check_logged_in_or_admin() {
+    BaseController::check_logged_in_or_admin();
+}
+
 $routes->get('/hiekkalaatikko', function() {
     BandController::sandbox();
 });
@@ -96,7 +104,7 @@ $routes->get('/band/:id/delete', 'check_logged_in', function() {
     BandController::delete();
 });
 
-$routes->get('/logout', 'check_logged_in', function() {
+$routes->get('/logout', 'check_logged_in_or_admin', function() {
     BandController::logout();
 });
 
@@ -182,6 +190,22 @@ $routes->get('/bandgenre/:id/delete', 'check_logged_in', function($id) {
 
 $routes->get('/bandgenre/:id/add', 'check_logged_in', function($id) {
     BandGenreController::add($id);
+});
+
+$routes->get('/genres', 'check_admin', function() {
+    GenreController::manage_genres();
+});
+
+$routes->post('/genres', 'check_admin', function() {
+    GenreController::add_genre();
+});
+
+$routes->get('/genres/:id/delete', 'check_admin', function($id) {
+    GenreController::delete_genre($id);
+});
+
+$routes->get('/accounts', 'check_admin', function() {
+    BandController::manage_accounts();
 });
 
 $routes->get('/band/:id', function($id) {

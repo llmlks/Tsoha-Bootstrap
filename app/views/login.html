@@ -4,9 +4,13 @@
 <h2>Log in</h2>
 
 {% if error %}
-{{error}}
+<div class="alert alert-danger">
+    {{error}}
+</div>
 {% elseif message %}
-{{message}}
+<div class="alert alert-info">
+    {{message}}
+</div>
 {% endif %}
 
 <form method="post" action="{{base_path}}/login">
@@ -22,7 +26,7 @@
     </div>
 
     <button type="submit" class="btn btn-primary">Log in</button>
-    
+
 </form>
 
 {% endblock %}

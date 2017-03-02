@@ -3,7 +3,11 @@
 {% block content %}
 <h2>Edit: {{band.bandname}}</h2>
 
-<p>{{error}}</p>
+{% if error %}
+<div class="alert alert-danger">
+    {{error}}
+</div>
+{% endif %}
 
 <label>Delete genres</label>
 <div class="form-group">

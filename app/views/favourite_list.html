@@ -31,8 +31,8 @@
     </table>
 </div>
 {% elseif user == band.id %}
-<p>You have not added any bands to your favourites. You can do so by searching bands you like by name or by genre and then clicking "Add to favourites" on their profile.</p>
+<div class="alert alert-info">You have not added any bands to your favourites. You can do so by searching bands you like by name or by genre and then clicking "Add to favourites" on their profile.</div>
 {% else %}
-<p>{{band.bandname}} hasn't added any bands to their favourites list.</p>
+<div class="alert alert-info">{{band.bandname}} hasn't added any bands to their favourites list.</div>
 {% endif %}
 {% endblock %}
