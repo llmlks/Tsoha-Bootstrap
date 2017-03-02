@@ -100,7 +100,7 @@ $routes->post('/band/:id/edit', 'check_logged_in', function() {
     BandController::update();
 });
 
-$routes->get('/band/:id/delete', 'check_logged_in', function() {
+$routes->get('/band/:id/delete', 'check_logged_in_or_admin', function() {
     BandController::delete();
 });
 

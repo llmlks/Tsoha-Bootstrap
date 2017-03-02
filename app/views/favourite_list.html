@@ -23,7 +23,7 @@
                     {% endif %}
                 </td>
                 {% if user == band.id %}
-                <th><a class="btn btn-danger" href="{{base_path}}/favourite/{{favourite.id}}/delete">Delete</a></th>
+                <td><a class="btn btn-danger" href="{{base_path}}/favourite/{{favourite.id}}/delete">Delete</a></td>
                 {% endif %}
             </tr>
             {% endfor %}
