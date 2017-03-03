@@ -208,6 +208,10 @@ $routes->get('/accounts', 'check_admin', function() {
     BandController::manage_accounts();
 });
 
+$routes->get('/accounts/:id/delete', function($id) {
+    BandController::admin_delete($id);
+});
+
 $routes->get('/band/:id', function($id) {
     BandController::band_show($id);
 });

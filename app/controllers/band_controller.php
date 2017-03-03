@@ -251,6 +251,13 @@ class BandController extends BaseController {
 
         View::make('admin_accounts.html', array('admin' => $_SESSION['admin'], 'bands' => $bands, 'pages' => $pages));
     }
+    
+    public static function admin_delete($id) {
+        
+        Band::delete($id);
+        
+        Redirect::to('/accounts');
+    }    
 
     public static function band_edit() {
 
